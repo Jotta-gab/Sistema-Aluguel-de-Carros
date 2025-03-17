@@ -20,8 +20,8 @@ O sistema registra informações essenciais sobre os contratantes, veículos e c
 | UC5  |Como cliente, quero poder cancelar um pedido de aluguel em aberto, para evitar cobranças indevidas ou mudanças de planos. |
 | UC6  | Como agente, quero poder modificar os detalhes de um pedido de aluguel, para garantir que ele esteja completo e correto antes da avaliação. |
 | UC7  | Como agente, quero poder avaliar financeiramente os pedidos de aluguel, para verificar se o cliente tem condições de arcar com o pagamento. |
-| UC8  | Como sistema, quero gerenciar os pedidos e contratos de aluguel, para que todas as informações fiquem organizadas e acessíveis. | 
-| UC9  | Como sistema, quero registrar e armazenar dados de clientes, automóveis e contratos, para garantir que as informações estejam sempre disponíveis e seguras. | 
+| UC8  | Como Administrador, quero gerenciar os pedidos e contratos de aluguel, para que todas as informações fiquem organizadas e acessíveis. | 
+| UC9  | Como Admistrador, quero registrar e armazenar dados de clientes, automóveis e contratos, para garantir que as informações estejam sempre disponíveis e seguras. | 
 
 
 # Diagrama de Classes
