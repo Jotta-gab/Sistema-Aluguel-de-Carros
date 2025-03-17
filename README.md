@@ -8,7 +8,7 @@ O Sistema de Aluguel de Carros é uma plataforma desenvolvida para facilitar a g
 O sistema registra informações essenciais sobre os contratantes, veículos e contratos de crédito, garantindo um processo seguro e organizado. Com uma interface intuitiva, ele proporciona uma experiência eficiente tanto para clientes quanto para agentes envolvidos no processo.
 
 # Diagrama de Caso de Uso
-<img width="2992" alt="Image" src="/Artefatos/Diagramas/DIAGRAMA DE CASO DE USO.png" />
+<img width="2992" alt="Image" src="/Artefatos/Diagramas/DIAGRAMA DE CASO DE USO (Community).png" />
 
 # Histórias de Usuário
 | ID  | História de Usuário |
@@ -21,7 +21,7 @@ O sistema registra informações essenciais sobre os contratantes, veículos e c
 | UC6  | Como agente, quero poder modificar os detalhes de um pedido de aluguel, para garantir que ele esteja completo e correto antes da avaliação. |
 | UC7  | Como agente, quero poder avaliar financeiramente os pedidos de aluguel, para verificar se o cliente tem condições de arcar com o pagamento. |
 | UC8  | Como Administrador, quero gerenciar os pedidos e contratos de aluguel, para que todas as informações fiquem organizadas e acessíveis. | 
-| UC9  | Como Admistrador, quero registrar e armazenar dados de clientes, automóveis e contratos, para garantir que as informações estejam sempre disponíveis e seguras. | 
+| UC9  | Como Administrador, quero registrar e armazenar dados de clientes, automóveis e contratos, para garantir que as informações estejam sempre disponíveis e seguras. | 
 
 
 # Diagrama de Classes
