@@ -10,6 +10,9 @@ O sistema registra informações essenciais sobre os contratantes, veículos e c
 # Diagrama de Caso de Uso
 <img width="2992" alt="Image" src="/Artefatos/Diagramas/diagrama caso de uso.png" />
 
+# Diagrama de Pacotes
+<img width="2992" alt="Image" src="/Artefatos/Diagramas/Diagrama de Pacotes.png" />
+
 # Histórias de Usuário
 | ID  | História de Usuário |
 |----|--------------------|
