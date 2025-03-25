@@ -13,6 +13,9 @@ O sistema registra informações essenciais sobre os contratantes, veículos e c
 # Diagrama de Pacotes
 <img width="2992" alt="Image" src="/Artefatos/Diagramas/Diagrama de Pacotes.png" />
 
+# Diagrama de Componentes
+<img width="2992" alt="Image" src="/Artefatos/Diagramas/Diagrama de Componentes Pds.png" />
+
 # Histórias de Usuário
 | ID  | História de Usuário |
 |----|--------------------|
