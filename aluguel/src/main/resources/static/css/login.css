@@ -1,9 +1,10 @@
 :root {
-  --primary-color: #98FB98;
+  --primary-color: #98fb98;
   --secondary-color: #77c077;
   --accent-color: #e74c3c;
   --light-color: #ecf0f1;
   --dark-color: #2c3e50;
+  --success-color: #2ecc71;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
 }
@@ -17,42 +18,37 @@
 
 body {
   background-color: #f5f7fa;
-  color: var(--dark-color);
-  line-height: 1.6;
-  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
 }
 
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
+.login-container {
+  width: 100%;
+  max-width: 400px;
   background: white;
   border-radius: 10px;
   box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
 }
 
-.header {
+.login-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1.5rem;
   text-align: center;
-  margin-bottom: 2rem;
-  position: relative;
 }
 
-.header h1 {
-  color: var(--dark-color);
-  font-size: 2.2rem;
+.login-header h1 {
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
 }
 
-.header h1::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background-color: var(--primary-color);
-  border-radius: 2px;
+.login-body {
+  padding: 2rem;
 }
 
 .form-group {
@@ -81,53 +77,36 @@ body {
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-.btn-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-  gap: 1rem;
-}
-
 .btn {
-  flex: 1;
+  width: 100%;
   padding: 0.8rem;
+  background-color: var(--primary-color);
+  color: white;
   border: none;
   border-radius: 5px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  text-align: center;
-  text-decoration: none;
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.btn-primary:hover {
+.btn:hover {
   background-color: var(--secondary-color);
   transform: translateY(-2px);
 }
 
-.btn-secondary {
-  background-color: var(--light-color);
-  color: var(--dark-color);
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #7f8c8d;
 }
 
-.btn-secondary:hover {
-  background-color: #dfe6e9;
-  transform: translateY(-2px);
+.login-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-@media (max-width: 768px) {
-  .container {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-
-  .btn-container {
-    flex-direction: column;
-  }
+.login-footer a:hover {
+  text-decoration: underline;
 }
