@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Pedido - ToDeCarro</title>
+    <link rel="stylesheet" href="/aluguel/src/main/resources/static/css/styles.css">
+</head>
+<body>
+    <h2>Criar Novo Pedido</h2>
+
+    <form id="novoPedidoForm">
+        <div class="input-group">
+            <label for="veiculo">Selecione o Veículo</label>
+            <select id="veiculo" name="veiculo" required></select>
+        </div>
+        <div class="input-group">
+            <label for="justificativa">Justificativa</label>
+            <textarea id="justificativa" name="justificativa" required></textarea>
+        </div>
+        <div class="input-group">
+            <label for="diasAluguel">Dias de Aluguel</label>
+            <input type="number" id="diasAluguel" name="diasAluguel" min="1" max="30" required>
+        </div>
+        <div class="input-group">
+            <label for="condicoes">Condições de Pagamento</label>
+            <select id="condicoes" name="condicoes" required>
+                <option value="À vista">À vista</option>
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="Cartão de Débito">Cartão de Débito</option>
+                <option value="Boleto">Boleto</option>
+            </select>
+        </div>
+        <div class="input-group" id="parcelasDiv" style="display: none;">
+            <label for="parcelas">Parcelas</label>
+            <select id="parcelas" name="parcelas">
+                <option value="1">1x</option>
+                <option value="2">2x</option>
+                <option value="3">3x</option>
+                <option value="4">4x</option>
+                <option value="5">5x</option>
+                <option value="6">6x</option>
+            </select>
+        </div>
+
+        <!-- Novos campos do cliente -->
+        <div class="input-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" required>
+        </div>
+        <div class="input-group">
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" required>
+        </div>
+
+        <div class="input-group">
+            <label for="valorTotal">Valor Total</label>
+            <input type="text" id="valorTotal" name="valorTotal" readonly>
+        </div>
+
+        <button type="submit">Enviar Pedido</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carregar veículos disponíveis
+            fetch('http://localhost:8080/cliente/veiculosDisponiveis')
+                .then(response => response.json())
+                .then(veiculos => {
+                    const veiculoSelect = document.getElementById('veiculo');
+                    veiculos.forEach(veiculo => {
+                        const option = document.createElement('option');
+                        option.value = veiculo.id;
+                        option.textContent = veiculo.modelo;  // Exibe somente o modelo
+                        veiculoSelect.appendChild(option);
+                    });
+                });
+
+            // Mostrar opções de parcelas para Cartão de Crédito e Boleto
+            document.getElementById('condicoes').addEventListener('change', function() {
+                const condicoes = this.value;
+                const parcelasDiv = document.getElementById('parcelasDiv');
+                if (condicoes === 'Cartão de Crédito' || condicoes === 'Boleto') {
+                    parcelasDiv.style.display = 'block';
+                } else {
+                    parcelasDiv.style.display = 'none';
+                }
+            });
+
+            // Calcular valor total quando o número de dias ou condições de pagamento mudar
+            document.getElementById('diasAluguel').addEventListener('input', calcularValorTotal);
+            document.getElementById('condicoes').addEventListener('change', calcularValorTotal);
+            document.getElementById('parcelas').addEventListener('change', calcularValorTotal);
+
+            function calcularValorTotal() {
+                const veiculoId = document.getElementById('veiculo').value;
+                const diasAluguel = document.getElementById('diasAluguel').value;
+                const condicoes = document.getElementById('condicoes').value;
+                const parcelas = condicoes === 'Cartão de Crédito' || condicoes === 'Boleto' ? document.getElementById('parcelas').value : 1;
+
+                if (veiculoId && diasAluguel > 0) {
+                    fetch(`http://localhost:8080/cliente/veiculo/${veiculoId}`)
+                        .then(response => response.json())
+                        .then(veiculo => {
+                            let valorAluguel = veiculo.precoDiaria * diasAluguel;
+                            if (parcelas >= 4) {
+                                valorAluguel += valorAluguel * 0.05;  // Juros de 5%
+                            }
+
+                            document.getElementById('valorTotal').value = `R$ ${valorAluguel.toFixed(2)}`;
+                        });
+                }
+            }
+
+            // Submeter pedido
+            document.getElementById('novoPedidoForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const veiculoId = document.getElementById('veiculo').value;
+                const justificativa = document.getElementById('justificativa').value;
+                const diasAluguel = document.getElementById('diasAluguel').value;
+                const condicoes = document.getElementById('condicoes').value;
+                const parcelas = condicoes === 'Cartão de Crédito' || condicoes === 'Boleto' ? document.getElementById('parcelas').value : 1;
+                const nome = document.getElementById('nome').value;
+                const email = document.getElementById('email').value;
+                const telefone = document.getElementById('telefone').value;
+                const cpf = document.getElementById('cpf').value;
+
+                const pedido = {
+                    veiculo: { id: veiculoId },
+                    justificativa: justificativa,
+                    diasAluguel: diasAluguel,
+                    condicoes: condicoes,
+                    parcelas: parcelas,
+                    nome: nome,
+                    email: email,
+                    telefone: telefone,
+                    cpf: cpf
+                };
+
+                fetch('http://localhost:8080/cliente/criarPedido', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(pedido)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Pedido enviado com sucesso!");
+                    window.location.href = 'meusPedidos.html';  // Redirecionar para a tela de Meus Pedidos
+                })
+                .catch(error => console.error('Erro ao enviar pedido:', error));
+            });
+        });
+    </script>
+</body>
+</html>

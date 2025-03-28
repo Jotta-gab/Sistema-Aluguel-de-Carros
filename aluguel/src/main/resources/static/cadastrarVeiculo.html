@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Veículo - ToDeCarro</title>
+    <link rel="stylesheet" href="/aluguel/src/main/resources/static/css/styles.css">
+</head>
+<body>
+    <div class="cadastro-veiculo-container">
+        <h2>Cadastrar Veículo</h2>
+        <form id="cadastroVeiculoForm">
+            <div class="input-group">
+                <label for="ano">Ano</label>
+                <input type="text" id="ano" name="ano" placeholder="Digite o ano do veículo" required>
+            </div>
+            <div class="input-group">
+                <label for="marca">Marca</label>
+                <input type="text" id="marca" name="marca" placeholder="Digite a marca do veículo" required>
+            </div>
+            <div class="input-group">
+                <label for="modelo">Modelo</label>
+                <input type="text" id="modelo" name="modelo" placeholder="Digite o modelo do veículo" required>
+            </div>
+            <div class="input-group">
+                <label for="placa">Placa</label>
+                <input type="text" id="placa" name="placa" placeholder="Digite a placa do veículo" required>
+            </div>
+            <div class="input-group">
+                <label for="precoDiaria">Preço da Diária</label>
+                <input type="number" id="precoDiaria" name="precoDiaria" placeholder="Digite o preço da diária" required>
+            </div>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p><a href="visualizarVeiculos.html">Visualizar Veículos</a></p>
+    </div>
+
+    <script>
+       document.getElementById('cadastroVeiculoForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    let ano = document.getElementById('ano').value;
+    let marca = document.getElementById('marca').value;
+    let modelo = document.getElementById('modelo').value;
+    let placa = document.getElementById('placa').value;
+    let precoDiaria = document.getElementById('precoDiaria').value;
+
+    fetch(' http://localhost:8080/admin/cadastrarVeiculo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ano: ano,
+            marca: marca,
+            modelo: modelo,
+            placa: placa,
+            precoDiaria: precoDiaria
+        })
+    })
+    .then(response => {
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+            return response.json().then(err => Promise.reject(err));
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert("Veículo cadastrado com sucesso!");
+        window.location.href = 'visualizarVeiculos.html'; // Redireciona para a página de visualização
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Erro ao cadastrar o veículo. Tente novamente.");
+    });
+});
+
+    </script>
+</body>
+</html>

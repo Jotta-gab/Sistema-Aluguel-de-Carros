@@ -1,0 +1,81 @@
+<body>
+    <h2>Meus Pedidos</h2>
+    
+    <label for="cpfCliente">Digite seu CPF:</label>
+    <input type="text" id="cpfCliente" placeholder="Digite seu CPF">
+    <button onclick="buscarPedidos()">Buscar Pedidos</button>
+    <link rel="stylesheet" href="/aluguel/src/main/resources/static/css/styles.css">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Veículo</th>
+                <th>Justificativa</th>
+                <th>Condições</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody id="pedidosTable"></tbody>
+    </table>
+
+    <script>
+        function buscarPedidos() {
+            const cpfCliente = document.getElementById("cpfCliente").value;
+
+            if (!cpfCliente) {
+                alert("Por favor, digite seu CPF.");
+                return;
+            }
+
+            fetch(`http://localhost:8080/cliente/meusPedidosCpf?cpf=${cpfCliente}`)
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById("pedidosTable");
+                    table.innerHTML = ""; // Limpa a tabela
+
+                    if (data && data.length > 0) {
+                        data.forEach(pedido => {
+                            let row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${pedido.status}</td>
+                                <td>${pedido.veiculo.modelo}</td>
+                                <td>${pedido.justificativa}</td>
+                                <td>${pedido.condicoes}</td>
+                                <td>
+                                    ${pedido.status === 'Em Análise' 
+                                        ? '<button onclick="cancelarPedido(' + pedido.id + ')">Cancelar</button>' 
+                                        : ''}
+                                </td>
+                            `;
+                            table.appendChild(row);
+                        });
+                    } else {
+                        let row = document.createElement("tr");
+                        row.innerHTML = `<td colspan="5">Nenhum pedido encontrado</td>`;
+                        table.appendChild(row);
+                    }
+                })
+                .catch(error => console.error('Erro ao carregar pedidos:', error));
+        }
+
+
+        function cancelarPedido(id) {
+    fetch(`http://localhost:8080/cliente/cancelarPedido/${id}`, {
+        method: 'POST',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Falha ao cancelar o pedido.");
+        }
+        return response.text();
+    })
+    .then(message => {
+        alert(message);
+        buscarPedidos(); // Atualiza a lista automaticamente
+    })
+    .catch(err => alert("Erro ao cancelar pedido."));
+}
+
+    </script>
+</body>
