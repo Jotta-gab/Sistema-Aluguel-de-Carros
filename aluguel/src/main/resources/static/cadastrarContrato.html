@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/img/icone-logo.png" type="image/png">
     <title>Cadastrar Contrato</title>
 </head>
 <body>
@@ -18,7 +17,7 @@
     <div id="informacoesPedido">
         <h2>Informações do Pedido</h2>
         <p><strong>Nome:</strong> <span id="nomeCliente"></span></p>
-        <p><strong>Veículo:</strong> <span id="modeloCarro"></span> - <span id="placaCarro"></span></p>
+        <p><strong>Veículo:</strong> <span id="modeloCarro"></span></p>
         <p><strong>Justificativa:</strong> <span id="justificativa"></span></p>
         <p><strong>Condições:</strong> <span id="condicoes"></span></p>
         <p><strong>Status:</strong> <span id="status"></span></p>
@@ -40,11 +39,6 @@
             <div>
                 <label for="modeloCarroContrato">Modelo do Carro:</label>
                 <input type="text" id="modeloCarroContrato" required />
-            </div>
-
-            <div>
-                <label for="placaCarroContrato">Placa do Carro:</label>
-                <input type="text" id="placaCarroContrato" required />
             </div>
 
             <div>
@@ -112,18 +106,16 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data) {
-                        document.getElementById('nomeCliente').textContent = data.nomeCliente;
-                        document.getElementById('modeloCarro').textContent = data.modeloCarro;
-                        document.getElementById('placaCarro').textContent = data.placaCarro;
+                        document.getElementById('nomeCliente').textContent = data.nome;
+                        document.getElementById('modeloCarro').textContent = data.modelo;
                         document.getElementById('justificativa').textContent = data.justificativa;
                         document.getElementById('condicoes').textContent = data.condicoes;
                         document.getElementById('status').textContent = data.status;
                         document.getElementById('informacoesPedido').style.display = 'block';
                         document.getElementById('formularioContrato').style.display = 'block';
 
-                        document.getElementById('nomeClienteContrato').value = data.nomeCliente;
-                        document.getElementById('modeloCarroContrato').value = data.modeloCarro;
-                        document.getElementById('placaCarroContrato').value = data.placaCarro;
+                        document.getElementById('nomeClienteContrato').value = data.nome;
+                        document.getElementById('modeloCarroContrato').value = data.modelo;
                     } else {
                         alert("Pedido não encontrado.");
                     }
@@ -147,7 +139,6 @@
                 cpfCliente: document.getElementById('cpfCliente').value,
                 telefoneCliente: document.getElementById('telefoneCliente').value,
                 modeloCarro: document.getElementById('modeloCarroContrato').value,
-                placaCarro: document.getElementById('placaCarroContrato').value,
                 dataInicioAluguel: document.getElementById('dataInicioAluguel').value,
                 dataFimAluguel: document.getElementById('dataFimAluguel').value,
                 precoDiaria: parseFloat(document.getElementById('precoDiaria').value),

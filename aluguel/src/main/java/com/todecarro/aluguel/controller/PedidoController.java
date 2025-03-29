@@ -27,6 +27,7 @@ public class PedidoController {
         return veiculoService.listarVeiculosDisponiveis();
     }
 
+    // Endpoint para criar um pedido
     @PostMapping("/criarPedido")
     @ResponseBody
     public Pedido criarPedido(@RequestBody Pedido pedido) {

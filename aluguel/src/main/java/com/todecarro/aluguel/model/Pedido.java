@@ -23,20 +23,23 @@ public class Pedido {
     private int diasAluguel;
     private int parcelas;
     private double valorComJuros;
-
+    
     private String cpf; // CPF do cliente no Pedido
     private String nome; // Nome do cliente
     private String email; // E-mail do cliente
     private String telefone; // Telefone do cliente
-    private String carro; // Nome do carro selecionado
 
     // Getters e Setters
-    public String getCarro() {
-        return carro;
+    private String modelo; // Novo campo para armazenar o modelo do veículo
+
+    // ... getters e setters existentes ...
+
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setCarro(String carro) {
-        this.carro = carro;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public Long getId() {

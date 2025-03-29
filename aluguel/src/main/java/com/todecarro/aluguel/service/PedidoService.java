@@ -35,9 +35,18 @@ public class PedidoService {
         }
         return false;
     }
+
     public Pedido criarPedido(Pedido pedido) {
         Veiculo veiculo = pedido.getVeiculo();
-        double valorAluguel = veiculo.getPrecoDiaria() * pedido.getDiasAluguel();
+        
+        // Buscar o veículo completo no banco de dados para obter o modelo
+        Veiculo veiculoCompleto = veiculoRepository.findById(veiculo.getId())
+            .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+        
+        // Definir o modelo no pedido
+        pedido.setModelo(veiculoCompleto.getModelo());
+        
+        double valorAluguel = veiculoCompleto.getPrecoDiaria() * pedido.getDiasAluguel();
 
         if (pedido.getParcelas() >= 4) {
             double juros = 0.05 * valorAluguel;
@@ -45,10 +54,8 @@ public class PedidoService {
         }
 
         pedido.setValorComJuros(valorAluguel);
-        pedido.setCarro(veiculo.getNome());  // Salva o nome do carro
         return pedidoRepository.save(pedido);
     }
-
     // Método para listar pedidos de um cliente com base no CPF
     public List<Pedido> listarPedidosPorCpf(String cpf) {
         return pedidoRepository.findByCpf(cpf);
