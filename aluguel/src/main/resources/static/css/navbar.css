@@ -1,0 +1,116 @@
+.admin-navbar {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 70px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--dark-color);
+  }
+  
+  .navbar-brand span {
+    color: var(--secondary-color);
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    padding: 0.8rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--secondary-color);
+  }
+  
+  .nav-link.active {
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+  
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--secondary-color);
+  }
+  
+  .nav-link.logout {
+    color: #e74c3c;
+  }
+  
+  .nav-link.logout:hover {
+    color: #c0392b;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
+    
+    .navbar-links {
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .nav-link {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+  }
+
+  /* Adicione este estilo no seu arquivo navbar.css ou aqui mesmo */
+  .navbar-brand .logo-modern {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.navbar-brand .logo-modern-icon {
+  font-size: 2rem;
+  color: white;
+  background-color: #77c077;
+  padding: 1px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.navbar-brand .logo-modern-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.navbar-brand .logo-modern-text span {
+    color: #98FB98;
+    font-weight: 800;
+}
