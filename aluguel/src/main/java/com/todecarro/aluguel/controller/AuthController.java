@@ -12,13 +12,11 @@ public class AuthController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // Endpoint para login
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String senha) {
         Usuario usuario = usuarioService.login(email, senha);
 
         if (usuario != null) {
-            // Redirecionar para a página de acordo com o tipo de conta
             if (usuario.getTipoConta().equals("Administrador")) {
                 return "redirect:/administrador.html";
             } else if (usuario.getTipoConta().equals("Agente")) {
@@ -27,7 +25,7 @@ public class AuthController {
                 return "redirect:/cliente.html";
             }
         }
-        return "redirect:/login.html"; // Redireciona para o login caso falhe
+        return "redirect:/login.html";
     }
 
     @PostMapping("/cadastrar")

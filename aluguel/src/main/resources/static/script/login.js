@@ -14,7 +14,7 @@ document
     })
       .then((response) => {
         if (response.redirected) {
-          window.location.href = response.url; // Redireciona para a página do tipo de conta
+          window.location.href = response.url;
         } else {
           alert("Credenciais inválidas");
         }

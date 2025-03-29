@@ -31,7 +31,7 @@ document
       })
       .then((data) => {
         alert("Veículo cadastrado com sucesso!");
-        window.location.href = "visualizarVeiculos.html"; // Redireciona para a página de visualização
+        window.location.href = "visualizarVeiculos.html";
       })
       .catch((err) => {
         console.error(err);

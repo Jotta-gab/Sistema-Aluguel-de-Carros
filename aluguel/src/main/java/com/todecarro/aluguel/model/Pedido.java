@@ -19,20 +19,17 @@ public class Pedido {
 
     private String justificativa;
     private String condicoes;
-    private String status = "Em Análise"; // Status padrão
+    private String status = "Em Análise";
     private int diasAluguel;
     private int parcelas;
     private double valorComJuros;
     
-    private String cpf; // CPF do cliente no Pedido
-    private String nome; // Nome do cliente
-    private String email; // E-mail do cliente
-    private String telefone; // Telefone do cliente
+    private String cpf;
+    private String nome;
+    private String email;
+    private String telefone;
 
-    // Getters e Setters
-    private String modelo; // Novo campo para armazenar o modelo do veículo
-
-    // ... getters e setters existentes ...
+    private String modelo;
 
     public String getModelo() {
         return modelo;

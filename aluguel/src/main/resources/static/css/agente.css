@@ -70,7 +70,7 @@ h1::after {
   border-radius: 10px;
   padding: 2rem;
   width: 300px;
-  min-height: 350px; /* Altura fixa */
+  min-height: 350px;
   display: flex;
   flex-direction: column;
   text-align: center;

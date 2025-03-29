@@ -18,7 +18,7 @@ document
       .then((response) => {
         if (response.ok) {
           alert("Cadastro realizado com sucesso! Redirecionando para login.");
-          window.location.href = "login.html"; // Redireciona para a página de login
+          window.location.href = "login.html";
         } else {
           alert("Erro ao cadastrar. Tente novamente.");
         }

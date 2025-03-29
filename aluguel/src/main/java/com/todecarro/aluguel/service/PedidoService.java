@@ -19,12 +19,10 @@ public class PedidoService {
     @Autowired
     private VeiculoRepository veiculoRepository;
 
-    // Método para listar pedidos com status "Em Análise"
     public List<Pedido> listarPedidosPendentes() {
         return pedidoRepository.findByStatus("Em Análise");
     }
 
-    // Método para aprovar ou reprovar um pedido
     public boolean aprovarOuReprovarPedido(Long id, String status) {
         Optional<Pedido> pedidoOptional = pedidoRepository.findById(id);
         if (pedidoOptional.isPresent()) {
@@ -38,12 +36,10 @@ public class PedidoService {
 
     public Pedido criarPedido(Pedido pedido) {
         Veiculo veiculo = pedido.getVeiculo();
-        
-        // Buscar o veículo completo no banco de dados para obter o modelo
+
         Veiculo veiculoCompleto = veiculoRepository.findById(veiculo.getId())
             .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
-        
-        // Definir o modelo no pedido
+
         pedido.setModelo(veiculoCompleto.getModelo());
         
         double valorAluguel = veiculoCompleto.getPrecoDiaria() * pedido.getDiasAluguel();
@@ -56,12 +52,11 @@ public class PedidoService {
         pedido.setValorComJuros(valorAluguel);
         return pedidoRepository.save(pedido);
     }
-    // Método para listar pedidos de um cliente com base no CPF
+
     public List<Pedido> listarPedidosPorCpf(String cpf) {
         return pedidoRepository.findByCpf(cpf);
     }
 
-    // Método para listar veículos disponíveis
     public List<Veiculo> listarVeiculosDisponiveis() {
         return veiculoRepository.findByStatus("Disponível");
     }
@@ -79,9 +74,8 @@ public class PedidoService {
         return false;
     }
 
-    // Método para listar todos os pedidos
 public List<Pedido> listarTodosPedidos() {
-    return pedidoRepository.findAll(); // Retorna todos os pedidos
+    return pedidoRepository.findAll();
 }
 
 public Pedido consultarPedidoPorCpf(String cpf) {

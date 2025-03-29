@@ -127,7 +127,6 @@ body {
   width: 100%;
 }
 
-/* Estilos para os botões */
 .btn-alugar, .btn-devolver {
   display: inline-block;
   padding: 0.7rem 1.2rem;
@@ -143,33 +142,32 @@ body {
 }
 
 .btn-alugar {
-  background-color: #98FB98; /* Laranja */
+  background-color: #98FB98;
   color: white;
 }
 
 .btn-alugar:hover {
-  background-color: #77c077; /* Laranja mais escuro */
+  background-color: #77c077;
   transform: translateY(-2px);
 }
 
 .btn-devolver {
-  background-color: #2ecc71; /* Verde */
+  background-color: #2ecc71;
   color: white;
 }
 
 .btn-devolver:hover {
-  background-color: #27ae60; /* Verde mais escuro */
+  background-color: #27ae60;
   transform: translateY(-2px);
 }
 
-/* Estilo para os cards de veículos */
 .veiculo {
   background: white;
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
-  border-left: 4px solid #2ecc71; /* Verde por padrão */
+  border-left: 4px solid #2ecc71;
 }
 
 .veiculo p {

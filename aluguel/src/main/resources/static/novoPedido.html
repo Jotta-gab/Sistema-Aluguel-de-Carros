@@ -1,161 +1,127 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Pedido - ToDeCarro</title>
-    <link rel="stylesheet" href="/aluguel/src/main/resources/static/css/styles.css">
+    <title>Novo Pedido | Tô de Carro</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/novoPedido.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h2>Criar Novo Pedido</h2>
-
-    <form id="novoPedidoForm">
-        <div class="input-group">
-            <label for="veiculo">Selecione o Veículo</label>
-            <select id="veiculo" name="veiculo" required></select>
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <a href="#" class="logo-modern">
+                <div class="logo-modern-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="logo-modern-text">
+                    TÔ<span>DECARRO</span>
+                </div>
+            </a>
         </div>
-        <div class="input-group">
-            <label for="justificativa">Justificativa</label>
-            <textarea id="justificativa" name="justificativa" required></textarea>
+        <div class="navbar-links">
+            <a href="/cliente.html" class="nav-link">
+                <i class="fas fa-home"></i> Início
+            </a> 
+            <a href="/meusPedidos.html" class="nav-link">
+                <i class="fas fa-list-check"></i> Meus Pedidos
+            </a>
+            <a href="/novoPedido.html" class="nav-link active">
+                <i class="fas fa-plus-circle"></i> Novo Pedido
+            </a>           
         </div>
-        <div class="input-group">
-            <label for="diasAluguel">Dias de Aluguel</label>
-            <input type="number" id="diasAluguel" name="diasAluguel" min="1" max="30" required>
-        </div>
-        <div class="input-group">
-            <label for="condicoes">Condições de Pagamento</label>
-            <select id="condicoes" name="condicoes" required>
-                <option value="À vista">À vista</option>
-                <option value="Cartão de Crédito">Cartão de Crédito</option>
-                <option value="Cartão de Débito">Cartão de Débito</option>
-                <option value="Boleto">Boleto</option>
-            </select>
-        </div>
-        <div class="input-group" id="parcelasDiv" style="display: none;">
-            <label for="parcelas">Parcelas</label>
-            <select id="parcelas" name="parcelas">
-                <option value="1">1x</option>
-                <option value="2">2x</option>
-                <option value="3">3x</option>
-                <option value="4">4x</option>
-                <option value="5">5x</option>
-                <option value="6">6x</option>
-            </select>
-        </div>
+    </nav>
 
-        <!-- Novos campos do cliente -->
-        <div class="input-group">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
-        <div class="input-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="input-group">
-            <label for="telefone">Telefone</label>
-            <input type="text" id="telefone" name="telefone" required>
-        </div>
-        <div class="input-group">
-            <label for="cpf">CPF</label>
-            <input type="text" id="cpf" name="cpf" required>
-        </div>
+    <div class="order-container">
+        <header>
+            <h1>Criar Novo Pedido</h1>
+        </header>
+        
+        <form id="novoPedidoForm" class="order-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="veiculo">Selecione o veículo:</label>
+                    <select id="veiculo" class="form-control" required>
+                        <option value="">Selecione um veículo</option>
+                    </select>
+                </div>
+            </div>
 
-        <button type="submit">Enviar Pedido</button>
-    </form>
+            <div class="form-group">
+                <label for="justificativa">Justificativa:</label>
+                <textarea id="justificativa" class="form-control" rows="3" required></textarea>
+            </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Carregar veículos disponíveis
-            fetch('http://localhost:8080/cliente/veiculosDisponiveis')
-                .then(response => response.json())
-                .then(veiculos => {
-                    const veiculoSelect = document.getElementById('veiculo');
-                    veiculos.forEach(veiculo => {
-                        const option = document.createElement('option');
-                        option.value = veiculo.id;
-                        option.textContent = veiculo.modelo;  // Exibe somente o modelo
-                        veiculoSelect.appendChild(option);
-                    });
-                });
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="diasAluguel">Dias de aluguel:</label>
+                    <input type="number" id="diasAluguel" class="form-control" min="1" required>
+                </div>
+            </div>
 
-            // Mostrar opções de parcelas para Cartão de Crédito e Boleto
-            document.getElementById('condicoes').addEventListener('change', function() {
-                const condicoes = this.value;
-                const parcelasDiv = document.getElementById('parcelasDiv');
-                if (condicoes === 'Cartão de Crédito' || condicoes === 'Boleto') {
-                    parcelasDiv.style.display = 'block';
-                } else {
-                    parcelasDiv.style.display = 'none';
-                }
-            });
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="condicoes">Condições de pagamento:</label>
+                    <select id="condicoes" class="form-control" required>
+                        <option value="">Selecione</option>
+                        <option value="À vista">À vista</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Cartão de Débito">Cartão de Débito</option>
+                        <option value="Boleto">Boleto</option>
+                    </select>
+                </div>
+            </div>
 
-            // Calcular valor total quando o número de dias ou condições de pagamento mudar
-            document.getElementById('diasAluguel').addEventListener('input', calcularValorTotal);
-            document.getElementById('condicoes').addEventListener('change', calcularValorTotal);
-            document.getElementById('parcelas').addEventListener('change', calcularValorTotal);
+            <div id="parcelasDiv" class="form-row" style="display: none;">
+                <div class="form-group">
+                    <label for="parcelas">Número de parcelas:</label>
+                    <select id="parcelas" class="form-control">
+                        <option value="1">1x</option>
+                        <option value="2">2x</option>
+                        <option value="3">3x</option>
+                        <option value="4">4x</option>
+                        <option value="5">5x</option>
+                        <option value="6">6x</option>
+                    </select>
+                </div>
+            </div>
 
-            function calcularValorTotal() {
-                const veiculoId = document.getElementById('veiculo').value;
-                const diasAluguel = document.getElementById('diasAluguel').value;
-                const condicoes = document.getElementById('condicoes').value;
-                const parcelas = condicoes === 'Cartão de Crédito' || condicoes === 'Boleto' ? document.getElementById('parcelas').value : 1;
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" class="form-control" required>
+                </div>
+            </div>
 
-                if (veiculoId && diasAluguel > 0) {
-                    fetch(`http://localhost:8080/cliente/veiculo/${veiculoId}`)
-                        .then(response => response.json())
-                        .then(veiculo => {
-                            let valorAluguel = veiculo.precoDiaria * diasAluguel;
-                            if (parcelas >= 4) {
-                                valorAluguel += valorAluguel * 0.05;  // Juros de 5%
-                            }
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+            </div>
 
-                            document.getElementById('valorTotal').value = `R$ ${valorAluguel.toFixed(2)}`;
-                        });
-                }
-            }
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" id="telefone" class="form-control" required>
+                </div>
+            </div>
 
-            // Submeter pedido
-            document.getElementById('novoPedidoForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" class="form-control" required>
+                </div>
+            </div>
 
-                const veiculoId = document.getElementById('veiculo').value;
-                const justificativa = document.getElementById('justificativa').value;
-                const diasAluguel = document.getElementById('diasAluguel').value;
-                const condicoes = document.getElementById('condicoes').value;
-                const parcelas = condicoes === 'Cartão de Crédito' || condicoes === 'Boleto' ? document.getElementById('parcelas').value : 1;
-                const cpf = document.getElementById('cpf').value;
-                const nome = document.getElementById('nome').value;
-                const email = document.getElementById('email').value;
-                const telefone = document.getElementById('telefone').value;
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Enviar Pedido</button>
+            </div>
+        </form>
+    </div>
 
-                const pedido = {
-                    veiculo: { id: veiculoId },
-                    justificativa: justificativa,
-                    diasAluguel: diasAluguel,
-                    condicoes: condicoes,
-                    parcelas: parcelas,
-                    cpf: cpf,
-                    nome: nome,
-                    email: email,
-                    telefone: telefone
-                };
-
-                fetch('http://localhost:8080/cliente/criarPedido', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(pedido)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert("Pedido enviado com sucesso!");
-                    window.location.href = 'meusPedidos.html';  // Redirecionar para a tela de Meus Pedidos
-                })
-                .catch(error => console.error('Erro ao enviar pedido:', error));
-            });
-        });
-    </script>
+    <script src="/script/novoPedido.js"></script>
 </body>
 </html>

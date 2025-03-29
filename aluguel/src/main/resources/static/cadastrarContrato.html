@@ -1,174 +1,173 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Contrato</title>
+    <title>Cadastro de Contrato | Tô de Carro</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/cadastrarContrato.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Cadastro de Contrato</h1>
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <a href="#" class="logo-modern">
+                <div class="logo-modern-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="logo-modern-text">
+                    TÔ<span>DECARRO</span>
+                </div>
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="/agente.html" class="nav-link">
+                <i class="fas fa-home"></i> Início
+            </a> 
+            <a href="/cadastrarContrato.html" class="nav-link active">
+                <i class="fas fa-file-contract"></i> Cadastrar Contrato
+            </a>
+            <a href="/avaliacao.html" class="nav-link">
+                <i class="fas fa-clipboard-list"></i> Pedidos Pendentes
+            </a>           
+        </div>
+    </nav>
 
-    <div>
-        <label for="cpfCliente">CPF do Cliente:</label>
-        <input type="text" id="cpfCliente" placeholder="Digite o CPF do Cliente" />
-        <button onclick="consultarPedido()">Consultar Pedido</button>
-    </div>
+    <div class="contract-container">
+        <header>
+            <h1>Cadastro de Contrato</h1>
+        </header>
+        
+        <div class="search-section">
+            <div class="form-group">
+                <label for="cpfCliente">CPF do cliente:</label>
+                <div class="input-with-button">
+                    <input type="text" id="cpfCliente" class="form-control" placeholder="000.000.000-00">
+                    <button onclick="consultarPedido()" class="btn-search">
+                        <i class="fas fa-search"></i> Consultar Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
 
-    <div id="informacoesPedido">
-        <h2>Informações do Pedido</h2>
-        <p><strong>Nome:</strong> <span id="nomeCliente"></span></p>
-        <p><strong>Veículo:</strong> <span id="modeloCarro"></span></p>
-        <p><strong>Justificativa:</strong> <span id="justificativa"></span></p>
-        <p><strong>Condições:</strong> <span id="condicoes"></span></p>
-        <p><strong>Status:</strong> <span id="status"></span></p>
-    </div>
+        <div id="informacoesPedido" class="info-section" style="display: none;">
+            <h2>Informações do Pedido</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Nome:</span>
+                    <span id="nomeCliente" class="info-value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Veículo:</span>
+                    <span id="modeloCarro" class="info-value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Justificativa:</span>
+                    <span id="justificativa" class="info-value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Condições:</span>
+                    <span id="condicoes" class="info-value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status:</span>
+                    <span id="status" class="info-value"></span>
+                </div>
+            </div>
+        </div>
 
-    <h2>Dados do Contrato</h2>
-    <div id="formularioContrato" style="display:none;">
-        <form id="contratoForm">
-            <div>
-                <label for="nomeClienteContrato">Nome do Cliente:</label>
-                <input type="text" id="nomeClienteContrato" required />
+        <form id="formularioContrato" class="contract-form" style="display: none;">
+            <h2>Dados do Contrato</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nomeClienteContrato">Nome do cliente:</label>
+                    <input type="text" id="nomeClienteContrato" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="telefoneCliente">Telefone do cliente:</label>
+                    <input type="text" id="telefoneCliente" class="form-control">
+                </div>
             </div>
 
-            <div>
-                <label for="telefoneCliente">Telefone do Cliente:</label>
-                <input type="text" id="telefoneCliente" required />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="modeloCarroContrato">Modelo do carro:</label>
+                    <input type="text" id="modeloCarroContrato" class="form-control">
+                </div>
             </div>
 
-            <div>
-                <label for="modeloCarroContrato">Modelo do Carro:</label>
-                <input type="text" id="modeloCarroContrato" required />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dataInicioAluguel">Data de início:</label>
+                    <input type="date" id="dataInicioAluguel" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="dataFimAluguel">Data de fim:</label>
+                    <input type="date" id="dataFimAluguel" class="form-control">
+                </div>
             </div>
 
-            <div>
-                <label for="dataInicioAluguel">Data de Início:</label>
-                <input type="date" id="dataInicioAluguel" required />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="precoDiaria">Preço da diária:</label>
+                    <input type="number" id="precoDiaria" class="form-control" step="0.01" oninput="calcularTotal()">
+                </div>
+                <div class="form-group">
+                    <label for="quantidadeDiarias">Quantidade de diárias:</label>
+                    <input type="number" id="quantidadeDiarias" class="form-control" oninput="calcularTotal()">
+                </div>
+                <div class="form-group">
+                    <label for="valorTotal">Valor total:</label>
+                    <input type="text" id="valorTotal" class="form-control" readonly>
+                </div>
             </div>
 
-            <div>
-                <label for="dataFimAluguel">Data de Fim:</label>
-                <input type="date" id="dataFimAluguel" required />
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="formaPagamento">Forma de pagamento:</label>
+                    <select id="formaPagamento" class="form-control">
+                        <option value="Boleto">Boleto</option>
+                        <option value="Cartão de Crédito/Débito">Cartão de Crédito/Débito</option>
+                        <option value="À vista">À vista</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tipoContrato">Tipo de contrato:</label>
+                    <select id="tipoContrato" class="form-control">
+                        <option value="Propriedade do cliente">Propriedade do cliente</option>
+                        <option value="Empresa">Empresa</option>
+                        <option value="Banco">Banco</option>
+                    </select>
+                </div>
             </div>
 
-            <div>
-                <label for="precoDiaria">Preço da Diária:</label>
-                <input type="number" id="precoDiaria" required oninput="calcularTotal()" />
+            <div class="form-group">
+                <label>Contrato de crédito:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="contratoCredito" value="sim"> Sim
+                    </label>
+                    <label>
+                        <input type="radio" name="contratoCredito" value="nao" checked> Não
+                    </label>
+                </div>
             </div>
 
-            <div>
-                <label for="quantidadeDiarias">Quantidade de Diárias:</label>
-                <input type="number" id="quantidadeDiarias" required oninput="calcularTotal()" />
+            <div id="instituicaoCreditoDiv" class="form-group" style="display: none;">
+                <label for="instituicaoCredito">Nome da instituição:</label>
+                <input type="text" id="instituicaoCredito" class="form-control">
             </div>
 
-            <div>
-                <label for="valorTotal">Valor Total:</label>
-                <input type="text" id="valorTotal" readonly />
+            <div class="form-actions">
+                <button type="button" onclick="criarContrato()" class="btn-submit">
+                    <i class="fas fa-file-signature"></i> Criar Contrato
+                </button>
             </div>
-
-            <div>
-                <label for="formaPagamento">Forma de Pagamento:</label>
-                <select id="formaPagamento" required>
-                    <option value="boleto">Boleto</option>
-                    <option value="cartao">Cartão de Crédito/Débito</option>
-                    <option value="avista">À Vista</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="tipoContrato">Tipo de Contrato:</label>
-                <select id="tipoContrato" required>
-                    <option value="propriedadeCliente">Propriedade do Cliente</option>
-                    <option value="empresa">Empresa</option>
-                    <option value="banco">Banco</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Contrato de Crédito:</label>
-                <input type="radio" id="contratoCreditoSim" name="contratoCredito" value="sim" /> Sim
-                <input type="radio" id="contratoCreditoNao" name="contratoCredito" value="nao" checked /> Não
-            </div>
-
-            <div id="instituicaoCreditoDiv" style="display:none;">
-                <label for="instituicaoCredito">Nome da Instituição:</label>
-                <input type="text" id="instituicaoCredito" />
-            </div>
-
-            <button type="button" onclick="criarContrato()">Criar Contrato</button>
         </form>
     </div>
 
-    <script>
-        function consultarPedido() {
-            const cpf = document.getElementById('cpfCliente').value;
-            fetch(`http://localhost:8080/admin/pedido/${cpf}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        document.getElementById('nomeCliente').textContent = data.nome;
-                        document.getElementById('modeloCarro').textContent = data.modelo;
-                        document.getElementById('justificativa').textContent = data.justificativa;
-                        document.getElementById('condicoes').textContent = data.condicoes;
-                        document.getElementById('status').textContent = data.status;
-                        document.getElementById('informacoesPedido').style.display = 'block';
-                        document.getElementById('formularioContrato').style.display = 'block';
-
-                        document.getElementById('nomeClienteContrato').value = data.nome;
-                        document.getElementById('modeloCarroContrato').value = data.modelo;
-                    } else {
-                        alert("Pedido não encontrado.");
-                    }
-                })
-                .catch(error => alert("Erro ao consultar o pedido: " + error));
-        }
-
-        function calcularTotal() {
-            const precoDiaria = parseFloat(document.getElementById('precoDiaria').value);
-            const quantidadeDiarias = parseInt(document.getElementById('quantidadeDiarias').value);
-
-            if (!isNaN(precoDiaria) && !isNaN(quantidadeDiarias)) {
-                const valorTotal = precoDiaria * quantidadeDiarias;
-                document.getElementById('valorTotal').value = valorTotal.toFixed(2);
-            }
-        }
-
-        function criarContrato() {
-            const contrato = {
-                nomeCliente: document.getElementById('nomeClienteContrato').value,
-                cpfCliente: document.getElementById('cpfCliente').value,
-                telefoneCliente: document.getElementById('telefoneCliente').value,
-                modeloCarro: document.getElementById('modeloCarroContrato').value,
-                dataInicioAluguel: document.getElementById('dataInicioAluguel').value,
-                dataFimAluguel: document.getElementById('dataFimAluguel').value,
-                precoDiaria: parseFloat(document.getElementById('precoDiaria').value),
-                quantidadeDiarias: parseInt(document.getElementById('quantidadeDiarias').value),
-                valorTotalAluguel: parseFloat(document.getElementById('valorTotal').value),
-                formaPagamento: document.getElementById('formaPagamento').value,
-                tipoContrato: document.getElementById('tipoContrato').value,
-                contratoCredito: document.querySelector('input[name="contratoCredito"]:checked').value === 'sim',
-                instituicaoCredito: document.getElementById('instituicaoCredito').value
-            };
-
-            fetch('http://localhost:8080/admin/cadastrarContrato', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(contrato)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("Contrato criado com sucesso!");
-            })
-            .catch(error => alert("Erro ao criar contrato: " + error));
-        }
-
-        document.querySelectorAll('input[name="contratoCredito"]').forEach((input) => {
-            input.addEventListener('change', function() {
-                document.getElementById('instituicaoCreditoDiv').style.display = this.value === 'sim' ? 'block' : 'none';
-            });
-        });
-    </script>
+    <script src="/script/cadastrarContrato.js"></script>
 </body>
 </html>

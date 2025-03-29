@@ -14,9 +14,8 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private String tipoConta; // Cliente ou Agente
+    private String tipoConta;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

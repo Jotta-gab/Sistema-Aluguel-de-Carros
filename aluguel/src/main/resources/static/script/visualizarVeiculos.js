@@ -1,4 +1,3 @@
-// Função para listar os veículos com status "Disponível"
 function listarVeiculosDisponiveis() {
   fetch("http://localhost:8080/admin/veiculosDisponiveis")
     .then((response) => response.json())
@@ -6,7 +5,7 @@ function listarVeiculosDisponiveis() {
       const veiculosDisponiveisDiv = document.getElementById(
         "veiculosDisponiveis"
       );
-      veiculosDisponiveisDiv.innerHTML = ""; // Limpar conteúdo anterior
+      veiculosDisponiveisDiv.innerHTML = "";
 
       if (data.length > 0) {
         data.forEach((veiculo) => {
@@ -32,13 +31,12 @@ function listarVeiculosDisponiveis() {
     });
 }
 
-// Função para listar os veículos com status "Alugado"
 function listarVeiculosAlugados() {
   fetch(" http://localhost:8080/admin/veiculosAlugados")
     .then((response) => response.json())
     .then((data) => {
       const veiculosAlugadosDiv = document.getElementById("veiculosAlugados");
-      veiculosAlugadosDiv.innerHTML = ""; // Limpar conteúdo anterior
+      veiculosAlugadosDiv.innerHTML = "";
 
       if (data.length > 0) {
         data.forEach((veiculo) => {
@@ -74,8 +72,8 @@ function alterarStatus(id, novoStatus) {
     .then((response) => response.json())
     .then((data) => {
       alert(`Status alterado para ${novoStatus}!`);
-      listarVeiculosDisponiveis(); // Atualiza a lista de veículos disponíveis
-      listarVeiculosAlugados(); // Atualiza a lista de veículos alugados
+      listarVeiculosDisponiveis();
+      listarVeiculosAlugados();
     })
     .catch((err) => {
       console.error(err);
@@ -83,7 +81,6 @@ function alterarStatus(id, novoStatus) {
     });
 }
 
-// Carregar os veículos quando a página for carregada
 window.onload = function () {
   listarVeiculosDisponiveis();
   listarVeiculosAlugados();

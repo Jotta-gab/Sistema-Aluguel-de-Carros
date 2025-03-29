@@ -1,0 +1,241 @@
+:root {
+    --primary-color: #98FB98;
+    --secondary-color: #77c077;
+    --dark-color: #2c3e50;
+    --light-color: #f8f9fa;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+.pending-orders-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--dark-color);
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.orders-section {
+    margin-bottom: 3rem;
+}
+
+.orders-section h2 {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.orders-table button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.2rem;
+}
+
+.orders-table button:first-child {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.orders-table button:first-child:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table button:nth-child(2) {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.orders-table button:nth-child(2):hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table button:nth-child(3) {
+    background-color: #3498db;
+    color: white;
+}
+
+.orders-table button:nth-child(3):hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.orders-table th {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.orders-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.status {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-em-analise {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.status-aprovado {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.status-reprovado {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.btn-approve {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-approve:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.btn-reject {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-reject:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+.btn-contract {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-contract:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.no-orders {
+    text-align: center;
+    padding: 2rem;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .pending-orders-container {
+        padding: 1rem;
+    }
+    
+    .orders-table th,
+    .orders-table td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}

@@ -16,9 +16,7 @@ public class Veiculo {
     private String modelo;
     private String placa;
     private double precoDiaria;
-    private String status; // Disponível ou Alugado
-
-    // Getters e Setters
+    private String status;
 
     public Long getId() {
         return id;
