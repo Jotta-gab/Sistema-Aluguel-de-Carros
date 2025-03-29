@@ -20,14 +20,25 @@ public class Pedido {
     private String justificativa;
     private String condicoes;
     private String status = "Em Análise"; // Status padrão
-    private int diasAluguel; // Novo campo para os dias de aluguel
-    private int parcelas; // Novo campo para o número de parcelas de pagamento
-    private double valorComJuros; // Valor do aluguel com juros, se aplicável
-    
-    // Adicionando CPF no Pedido, sem usar Usuario
+    private int diasAluguel;
+    private int parcelas;
+    private double valorComJuros;
+
     private String cpf; // CPF do cliente no Pedido
+    private String nome; // Nome do cliente
+    private String email; // E-mail do cliente
+    private String telefone; // Telefone do cliente
+    private String carro; // Nome do carro selecionado
 
     // Getters e Setters
+    public String getCarro() {
+        return carro;
+    }
+
+    public void setCarro(String carro) {
+        this.carro = carro;
+    }
+
     public Long getId() {
         return id;
     }
@@ -106,5 +117,29 @@ public class Pedido {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

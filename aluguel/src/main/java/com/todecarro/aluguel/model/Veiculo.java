@@ -75,4 +75,9 @@ public class Veiculo {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    // Método para retornar o nome do carro (marca + modelo)
+    public String getNome() {
+        return marca + " " + modelo;
+    }
 }

@@ -19,29 +19,39 @@ public class PedidoService {
     @Autowired
     private VeiculoRepository veiculoRepository;
 
-    // Método para criar um pedido
+    // Método para listar pedidos com status "Em Análise"
+    public List<Pedido> listarPedidosPendentes() {
+        return pedidoRepository.findByStatus("Em Análise");
+    }
+
+    // Método para aprovar ou reprovar um pedido
+    public boolean aprovarOuReprovarPedido(Long id, String status) {
+        Optional<Pedido> pedidoOptional = pedidoRepository.findById(id);
+        if (pedidoOptional.isPresent()) {
+            Pedido pedido = pedidoOptional.get();
+            pedido.setStatus(status);
+            pedidoRepository.save(pedido);
+            return true;
+        }
+        return false;
+    }
     public Pedido criarPedido(Pedido pedido) {
-        // Obtemos o veículo e calculamos o valor do aluguel com base nos dias
         Veiculo veiculo = pedido.getVeiculo();
         double valorAluguel = veiculo.getPrecoDiaria() * pedido.getDiasAluguel();
 
-        // Se as parcelas forem 4 ou mais, aplica juros de 5% a cada 3 parcelas
         if (pedido.getParcelas() >= 4) {
-            double juros = 0.05 * valorAluguel;  // Juros de 5%
+            double juros = 0.05 * valorAluguel;
             valorAluguel += juros;
         }
 
-        // Calculando o valor total do pedido
         pedido.setValorComJuros(valorAluguel);
-
-        // Salvando o pedido no banco
+        pedido.setCarro(veiculo.getNome());  // Salva o nome do carro
         return pedidoRepository.save(pedido);
     }
 
     // Método para listar pedidos de um cliente com base no CPF
     public List<Pedido> listarPedidosPorCpf(String cpf) {
-        // Agora, buscamos diretamente os pedidos pelo CPF
-        return pedidoRepository.findByCpf(cpf);  // Método ajustado para buscar pedidos pelo CPF no PedidoRepository
+        return pedidoRepository.findByCpf(cpf);
     }
 
     // Método para listar veículos disponíveis
@@ -53,15 +63,28 @@ public class PedidoService {
         Optional<Pedido> pedidoOptional = pedidoRepository.findById(id);
         if (pedidoOptional.isPresent()) {
             Pedido pedido = pedidoOptional.get();
-    
             if (!pedido.getStatus().equals("Em Análise")) {
-                return false; // Somente pedidos "Em Análise" podem ser cancelados
+                return false;
             }
-    
             pedidoRepository.delete(pedido);
             return true;
         }
         return false;
     }
-    
+
+    // Método para listar todos os pedidos
+public List<Pedido> listarTodosPedidos() {
+    return pedidoRepository.findAll(); // Retorna todos os pedidos
+}
+
+public Pedido consultarPedidoPorCpf(String cpf) {
+    List<Pedido> pedidos = pedidoRepository.findByCpf(cpf);
+
+    if (pedidos.isEmpty()) {
+        throw new UnsupportedOperationException("Nenhum pedido encontrado para o CPF informado.");
+    }
+
+    return pedidos.get(0);
+}
+
 }

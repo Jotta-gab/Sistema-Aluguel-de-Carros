@@ -27,7 +27,6 @@ public class PedidoController {
         return veiculoService.listarVeiculosDisponiveis();
     }
 
-    // Endpoint para criar um pedido
     @PostMapping("/criarPedido")
     @ResponseBody
     public Pedido criarPedido(@RequestBody Pedido pedido) {
@@ -40,14 +39,43 @@ public class PedidoController {
     public List<Pedido> listarPedidosPorCpf(@RequestParam String cpf) {
         return pedidoService.listarPedidosPorCpf(cpf);
     }
-    
-    // Endpoint para cancelar pedido
-@PostMapping("/cancelarPedido/{id}")
-@ResponseBody
-public String cancelarPedido(@PathVariable Long id) {
-    boolean pedidoCancelado = pedidoService.cancelarPedido(id);
-    return pedidoCancelado ? "Pedido cancelado com sucesso!" : "Erro ao cancelar pedido.";
-}
 
+    // Endpoint para cancelar pedido
+    @PostMapping("/cancelarPedido/{id}")
+    @ResponseBody
+    public String cancelarPedido(@PathVariable Long id) {
+        boolean pedidoCancelado = pedidoService.cancelarPedido(id);
+        return pedidoCancelado ? "Pedido cancelado com sucesso!" : "Erro ao cancelar pedido.";
+    }
+
+    // Endpoint para listar pedidos com status "Em Análise"
+    @GetMapping("/pedidosPendentes")
+    @ResponseBody
+    public List<Pedido> listarPedidosPendentes() {
+        return pedidoService.listarPedidosPendentes(); // Chama o serviço para pegar pedidos "Em Análise"
+    }
+
+    // Endpoint para aprovar pedido
+    @PostMapping("/aprovarPedido/{id}")
+    @ResponseBody
+    public String aprovarPedido(@PathVariable Long id) {
+        boolean aprovado = pedidoService.aprovarOuReprovarPedido(id, "Aprovado");
+        return aprovado ? "Pedido aprovado com sucesso!" : "Erro ao aprovar pedido.";
+    }
+
+    // Endpoint para reprovar pedido
+    @PostMapping("/reprovarPedido/{id}")
+    @ResponseBody
+    public String reprovarPedido(@PathVariable Long id) {
+        boolean aprovado = pedidoService.aprovarOuReprovarPedido(id, "Reprovado");
+        return aprovado ? "Pedido reprovado com sucesso!" : "Erro ao reprovar pedido.";
+    }
+
+    // Adicionando um método para listar todos os pedidos
+@GetMapping("/todosPedidos")
+@ResponseBody
+public List<Pedido> listarTodosPedidos() {
+    return pedidoService.listarTodosPedidos(); // Chama o serviço para pegar todos os pedidos
+}
 
 }
