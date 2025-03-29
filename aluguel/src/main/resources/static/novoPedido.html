@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo Pedido - ToDeCarro</title>
-    <link rel="stylesheet" href="/aluguel/src/main/resources/static/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
 </head>
 <body>
     <h2>Criar Novo Pedido</h2>
@@ -49,12 +50,12 @@
             <input type="text" id="nome" name="nome" required>
         </div>
         <div class="input-group">
-            <label for="email">Email</label>
+            <label for="email">E-mail</label>
             <input type="email" id="email" name="email" required>
         </div>
         <div class="input-group">
             <label for="telefone">Telefone</label>
-            <input type="tel" id="telefone" name="telefone" required>
+            <input type="text" id="telefone" name="telefone" required>
         </div>
         <div class="input-group">
             <label for="cpf">CPF</label>
@@ -129,10 +130,10 @@
                 const diasAluguel = document.getElementById('diasAluguel').value;
                 const condicoes = document.getElementById('condicoes').value;
                 const parcelas = condicoes === 'Cartão de Crédito' || condicoes === 'Boleto' ? document.getElementById('parcelas').value : 1;
+                const cpf = document.getElementById('cpf').value;
                 const nome = document.getElementById('nome').value;
                 const email = document.getElementById('email').value;
                 const telefone = document.getElementById('telefone').value;
-                const cpf = document.getElementById('cpf').value;
 
                 const pedido = {
                     veiculo: { id: veiculoId },
@@ -140,10 +141,10 @@
                     diasAluguel: diasAluguel,
                     condicoes: condicoes,
                     parcelas: parcelas,
+                    cpf: cpf,
                     nome: nome,
                     email: email,
-                    telefone: telefone,
-                    cpf: cpf
+                    telefone: telefone
                 };
 
                 fetch('http://localhost:8080/cliente/criarPedido', {

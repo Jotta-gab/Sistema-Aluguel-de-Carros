@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
+    <title>Todos os Pedidos</title>
+</head>
+<body>
+    <h1>Todos os Pedidos</h1>
+
+    <!-- Primeira Sessão: Pedidos com status "Em Análise" -->
+    <h2>Pedidos em Análise</h2>
+    <table id="tabelaPedidosEmAnalise">
+        <thead>
+            <tr>
+                <th>ID do Pedido</th>
+                <th>Nome do Cliente</th>
+                <th>Veículo</th>
+                <th>Justificativa</th>
+                <th>Condições</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="pedidosEmAnaliseList"></tbody>
+    </table>
+
+    <!-- Segunda Sessão: Pedidos com status diferente de "Em Análise" -->
+    <h2>Outros Pedidos</h2>
+    <table id="tabelaPedidosOutros">
+        <thead>
+            <tr>
+                <th>ID do Pedido</th>
+                <th>Nome do Cliente</th>
+                <th>Veículo</th>
+                <th>Justificativa</th>
+                <th>Condições</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="pedidosOutrosList"></tbody>
+    </table>
+
+    <script>
+        // Função para carregar todos os pedidos
+        function carregarTodosPedidos() {
+            fetch('http://localhost:8080/cliente/todosPedidos')
+                .then(response => response.json())
+                .then(data => {
+                    let tabelaEmAnalise = document.getElementById('pedidosEmAnaliseList');
+                    let tabelaOutros = document.getElementById('pedidosOutrosList');
+                    tabelaEmAnalise.innerHTML = ''; // Limpar tabela de "Em Análise"
+                    tabelaOutros.innerHTML = ''; // Limpar tabela de "Outros Pedidos"
+
+                    // Dividir os pedidos conforme o status
+                    data.forEach(pedido => {
+                        let row = `
+                            <td>${pedido.id}</td>
+                            <td>${pedido.nome || 'Não informado'}</td>
+                            <td>${pedido.veiculo ? pedido.veiculo.modelo + ' - ' + pedido.veiculo.placa : 'Não informado'}</td>
+                            <td>${pedido.justificativa || 'Não informado'}</td>
+                            <td>${pedido.condicoes || 'Não informado'}</td>
+                            <td>${pedido.status || 'Não informado'}</td>
+                            <td>
+    <button onclick="aprovarPedido(${pedido.id})">Aprovar</button>
+    <button onclick="reprovarPedido(${pedido.id})">Reprovar</button>
+    ${pedido.status === 'Aprovado' ? `<button onclick="window.location.href='cadastrarContrato.html'">Cadastrar Contrato</button>` : ''}
+</td>
+
+                        `;
+
+                        // Verificar se o status é "Em Análise"
+                        if (pedido.status === 'Em Análise') {
+                            let rowEmAnalise = tabelaEmAnalise.insertRow();
+                            rowEmAnalise.innerHTML = row;
+                        } else {
+                            let rowOutros = tabelaOutros.insertRow();
+                            rowOutros.innerHTML = row;
+                        }
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar pedidos:', error));
+        }
+
+        // Função para aprovar o pedido
+        function aprovarPedido(id) {
+            fetch(`http://localhost:8080/cliente/aprovarPedido/${id}`, { method: 'POST' })
+                .then(response => response.text())
+                .then(message => {
+                    alert(message);
+                    carregarTodosPedidos(); // Recarregar a lista após a ação
+                });
+        }
+
+        // Função para reprovar o pedido
+        function reprovarPedido(id) {
+            fetch(`http://localhost:8080/cliente/reprovarPedido/${id}`, { method: 'POST' })
+                .then(response => response.text())
+                .then(message => {
+                    alert(message);
+                    carregarTodosPedidos(); // Recarregar a lista após a ação
+                });
+        }
+
+        // Carregar todos os pedidos quando a página for carregada
+        window.onload = carregarTodosPedidos;
+    </script>
+</body>
+</html>

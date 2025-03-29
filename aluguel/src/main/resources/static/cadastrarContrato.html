@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
+    <title>Cadastrar Contrato</title>
+</head>
+<body>
+    <h1>Cadastro de Contrato</h1>
+
+    <div>
+        <label for="cpfCliente">CPF do Cliente:</label>
+        <input type="text" id="cpfCliente" placeholder="Digite o CPF do Cliente" />
+        <button onclick="consultarPedido()">Consultar Pedido</button>
+    </div>
+
+    <div id="informacoesPedido">
+        <h2>Informações do Pedido</h2>
+        <p><strong>Nome:</strong> <span id="nomeCliente"></span></p>
+        <p><strong>Veículo:</strong> <span id="modeloCarro"></span> - <span id="placaCarro"></span></p>
+        <p><strong>Justificativa:</strong> <span id="justificativa"></span></p>
+        <p><strong>Condições:</strong> <span id="condicoes"></span></p>
+        <p><strong>Status:</strong> <span id="status"></span></p>
+    </div>
+
+    <h2>Dados do Contrato</h2>
+    <div id="formularioContrato" style="display:none;">
+        <form id="contratoForm">
+            <div>
+                <label for="nomeClienteContrato">Nome do Cliente:</label>
+                <input type="text" id="nomeClienteContrato" required />
+            </div>
+
+            <div>
+                <label for="telefoneCliente">Telefone do Cliente:</label>
+                <input type="text" id="telefoneCliente" required />
+            </div>
+
+            <div>
+                <label for="modeloCarroContrato">Modelo do Carro:</label>
+                <input type="text" id="modeloCarroContrato" required />
+            </div>
+
+            <div>
+                <label for="placaCarroContrato">Placa do Carro:</label>
+                <input type="text" id="placaCarroContrato" required />
+            </div>
+
+            <div>
+                <label for="dataInicioAluguel">Data de Início:</label>
+                <input type="date" id="dataInicioAluguel" required />
+            </div>
+
+            <div>
+                <label for="dataFimAluguel">Data de Fim:</label>
+                <input type="date" id="dataFimAluguel" required />
+            </div>
+
+            <div>
+                <label for="precoDiaria">Preço da Diária:</label>
+                <input type="number" id="precoDiaria" required oninput="calcularTotal()" />
+            </div>
+
+            <div>
+                <label for="quantidadeDiarias">Quantidade de Diárias:</label>
+                <input type="number" id="quantidadeDiarias" required oninput="calcularTotal()" />
+            </div>
+
+            <div>
+                <label for="valorTotal">Valor Total:</label>
+                <input type="text" id="valorTotal" readonly />
+            </div>
+
+            <div>
+                <label for="formaPagamento">Forma de Pagamento:</label>
+                <select id="formaPagamento" required>
+                    <option value="boleto">Boleto</option>
+                    <option value="cartao">Cartão de Crédito/Débito</option>
+                    <option value="avista">À Vista</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="tipoContrato">Tipo de Contrato:</label>
+                <select id="tipoContrato" required>
+                    <option value="propriedadeCliente">Propriedade do Cliente</option>
+                    <option value="empresa">Empresa</option>
+                    <option value="banco">Banco</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Contrato de Crédito:</label>
+                <input type="radio" id="contratoCreditoSim" name="contratoCredito" value="sim" /> Sim
+                <input type="radio" id="contratoCreditoNao" name="contratoCredito" value="nao" checked /> Não
+            </div>
+
+            <div id="instituicaoCreditoDiv" style="display:none;">
+                <label for="instituicaoCredito">Nome da Instituição:</label>
+                <input type="text" id="instituicaoCredito" />
+            </div>
+
+            <button type="button" onclick="criarContrato()">Criar Contrato</button>
+        </form>
+    </div>
+
+    <script>
+        function consultarPedido() {
+            const cpf = document.getElementById('cpfCliente').value;
+            fetch(`http://localhost:8080/admin/pedido/${cpf}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('nomeCliente').textContent = data.nomeCliente;
+                        document.getElementById('modeloCarro').textContent = data.modeloCarro;
+                        document.getElementById('placaCarro').textContent = data.placaCarro;
+                        document.getElementById('justificativa').textContent = data.justificativa;
+                        document.getElementById('condicoes').textContent = data.condicoes;
+                        document.getElementById('status').textContent = data.status;
+                        document.getElementById('informacoesPedido').style.display = 'block';
+                        document.getElementById('formularioContrato').style.display = 'block';
+
+                        document.getElementById('nomeClienteContrato').value = data.nomeCliente;
+                        document.getElementById('modeloCarroContrato').value = data.modeloCarro;
+                        document.getElementById('placaCarroContrato').value = data.placaCarro;
+                    } else {
+                        alert("Pedido não encontrado.");
+                    }
+                })
+                .catch(error => alert("Erro ao consultar o pedido: " + error));
+        }
+
+        function calcularTotal() {
+            const precoDiaria = parseFloat(document.getElementById('precoDiaria').value);
+            const quantidadeDiarias = parseInt(document.getElementById('quantidadeDiarias').value);
+
+            if (!isNaN(precoDiaria) && !isNaN(quantidadeDiarias)) {
+                const valorTotal = precoDiaria * quantidadeDiarias;
+                document.getElementById('valorTotal').value = valorTotal.toFixed(2);
+            }
+        }
+
+        function criarContrato() {
+            const contrato = {
+                nomeCliente: document.getElementById('nomeClienteContrato').value,
+                cpfCliente: document.getElementById('cpfCliente').value,
+                telefoneCliente: document.getElementById('telefoneCliente').value,
+                modeloCarro: document.getElementById('modeloCarroContrato').value,
+                placaCarro: document.getElementById('placaCarroContrato').value,
+                dataInicioAluguel: document.getElementById('dataInicioAluguel').value,
+                dataFimAluguel: document.getElementById('dataFimAluguel').value,
+                precoDiaria: parseFloat(document.getElementById('precoDiaria').value),
+                quantidadeDiarias: parseInt(document.getElementById('quantidadeDiarias').value),
+                valorTotalAluguel: parseFloat(document.getElementById('valorTotal').value),
+                formaPagamento: document.getElementById('formaPagamento').value,
+                tipoContrato: document.getElementById('tipoContrato').value,
+                contratoCredito: document.querySelector('input[name="contratoCredito"]:checked').value === 'sim',
+                instituicaoCredito: document.getElementById('instituicaoCredito').value
+            };
+
+            fetch('http://localhost:8080/admin/cadastrarContrato', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contrato)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Contrato criado com sucesso!");
+            })
+            .catch(error => alert("Erro ao criar contrato: " + error));
+        }
+
+        document.querySelectorAll('input[name="contratoCredito"]').forEach((input) => {
+            input.addEventListener('change', function() {
+                document.getElementById('instituicaoCreditoDiv').style.display = this.value === 'sim' ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

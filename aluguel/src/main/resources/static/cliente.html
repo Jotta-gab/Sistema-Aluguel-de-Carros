@@ -1,20 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Cliente - ToDeCarro</title>
-    <link rel="stylesheet" href="/aluguel/src/main/resources/static/css/styles.css">
+    <title>Painel do Cliente | Tô de Carro</title>
+    <link rel="stylesheet" href="/css/cliente.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
+    
 </head>
 <body>
-    <div class="dashboard-container">
-        <h2>Bem-vindo, Cliente</h2>
-        <nav>
-            <ul>
-                <li><a href="meusPedidos.html">Meus Pedidos</a></li>
-                <li><a href="novoPedido.html">Novo Pedido</a></li>
-            </ul>
-        </nav>
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <a href="#" class="logo-modern">
+                <div class="logo-modern-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="logo-modern-text">
+                    TÔ<span>DECARRO</span>
+                </div>
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="/agente.html" class="nav-link">
+                <i class="fas fa-home"></i> Início
+            </a> 
+            <a href="/meusPedidos.html" class="nav-link">
+                <i class="fas fa-clipboard-list"></i> Meus Pedidos
+            </a>
+            <a href="/novoPedido.html" class="nav-link">
+                <i class="fas fa-plus"></i> Novo Pedido
+            </a>           
+        </div>
+    </nav>
+
+    <div class="agent-container">
+        <header>
+            <h1>Painel do Cliente</h1>
+            <p class="subtitle">Gerencie contratos e pedidos pendentes</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card" onclick="location.href='/meusPedidos.html'">
+                <div class="card-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3 class="card-title">Meus Pedidos</h3>
+                <p class="card-description">Acompanhe o status dos seus pedidos de aluguel e veja o histórico.</p>
+                <a href="/meusPedidos.html" class="btn">Acessar</a>
+            </div>
+            
+            <div class="card" onclick="location.href='/novoPedido.html'">
+                <div class="card-icon">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <h3 class="card-title">Novo Pedido</h3>
+                <p class="card-description">Solicite o aluguel de um veículo para seu próximo destino.</p>
+                <a href="/novoPedido.html" class="btn">Acessar</a>
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>
