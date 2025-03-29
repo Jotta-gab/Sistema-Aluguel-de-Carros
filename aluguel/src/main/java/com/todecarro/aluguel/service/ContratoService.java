@@ -21,6 +21,7 @@ public class ContratoService {
 
     public Contrato cadastrarContrato(Contrato contrato) {
         contrato.setValorTotalAluguel(contrato.getQuantidadeDiarias() * contrato.getPrecoDiaria());
+        contrato.setAtivo(true);
         return contratoRepository.save(contrato);
     }
 
@@ -29,11 +30,26 @@ public class ContratoService {
     }
 
     public List<Contrato> listarContratos() {
-        return contratoRepository.findAll();
+        return contratoRepository.findByAtivoTrue();
     }
 
     public Pedido consultarPedidoPorCpf(String cpf) {
         List<Pedido> pedidos = pedidoRepository.findByCpf(cpf);
         return pedidos.isEmpty() ? null : pedidos.get(0);
+    }
+
+    public void cancelarContrato(Long id) {
+        contratoRepository.findById(id).ifPresent(contrato -> {
+            contrato.setAtivo(false);
+            contratoRepository.save(contrato);
+        });
+    }
+
+    public void excluirContrato(Long id) {
+        contratoRepository.deleteById(id);
+    }
+
+    public List<Contrato> listarTodosContratos() {
+        return contratoRepository.findAll(); 
     }
 }

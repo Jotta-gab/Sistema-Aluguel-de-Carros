@@ -4,7 +4,6 @@ import com.todecarro.aluguel.model.Contrato;
 import com.todecarro.aluguel.model.Pedido;
 import com.todecarro.aluguel.service.ContratoService;
 import com.todecarro.aluguel.service.PedidoService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +43,23 @@ public class ContratoController {
     @ResponseBody
     public List<Contrato> listarContratos() {
         return contratoService.listarContratos();
+    }
+
+    @PostMapping("/contrato/cancelar/{id}")
+    @ResponseBody
+    public void cancelarContrato(@PathVariable Long id) {
+        contratoService.cancelarContrato(id);
+    }
+
+    @DeleteMapping("/contrato/excluir/{id}")
+    @ResponseBody
+    public void excluirContrato(@PathVariable Long id) {
+        contratoService.excluirContrato(id);
+    }
+
+    @GetMapping("/contratos/todos")
+    @ResponseBody
+    public List<Contrato> listarTodosContratos() {
+        return contratoService.listarTodosContratos();
     }
 }

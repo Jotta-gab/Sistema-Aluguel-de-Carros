@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Contratos</title>
+    <link rel="stylesheet" href="css/listarContratos.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
+    
+</head>
+
+<body>
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <a href="#" class="logo-modern">
+                <div class="logo-modern-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="logo-modern-text">
+                    TÔ<span>DECARRO</span>
+                </div>
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="/agente.html" class="nav-link">
+                <i class="fas fa-home"></i> Início
+            </a> 
+            <a href="/cadastrarContrato.html" class="nav-link">
+                <i class="fas fa-file-contract"></i> Cadastrar Contrato
+            </a>
+            <a href="/avaliacao.html" class="nav-link active">
+                <i class="fas fa-clipboard-list"></i> Pedidos Pendentes
+            </a>           
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Contratos Cadastrados</h1>
+
+        <div class="mb-3">
+            <button id="btnMostrarTodos" class="btn btn-secondary">Mostrar Todos</button>
+            <button id="btnMostrarAtivos" class="btn btn-primary">Mostrar Apenas Ativos</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>CPF</th>
+                        <th>Carro</th>
+                        <th>Período</th>
+                        <th>Valor Total</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="contratosTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/script/listarContratos.js"></script>
+</body>
+
+</html>
