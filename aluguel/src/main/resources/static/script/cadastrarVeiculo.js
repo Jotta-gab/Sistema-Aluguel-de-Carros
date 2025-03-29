@@ -23,7 +23,6 @@ document
       }),
     })
       .then((response) => {
-        // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
           return response.json().then((err) => Promise.reject(err));
         }

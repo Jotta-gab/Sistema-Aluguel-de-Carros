@@ -29,11 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function criarLinhaContrato(contrato) {
         const row = document.createElement('tr');
 
-        // Formata as datas
         const dataInicio = new Date(contrato.dataInicioAluguel).toLocaleDateString();
         const dataFim = new Date(contrato.dataFimAluguel).toLocaleDateString();
 
-        // Determina o status
         const status = contrato.ativo ? 'Ativo' : 'Cancelado';
         const statusClass = contrato.ativo ? 'status-ativo' : 'status-inativo';
 
