@@ -21,21 +21,21 @@ public class Contrato {
     private String telefoneCliente;
     private String modeloCarro;
     private String placaCarro;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dataInicioAluguel;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dataFimAluguel;
 
     private Double precoDiaria;
     private Integer quantidadeDiarias;
     private Double valorTotalAluguel;
-    
+
     private String formaPagamento;
-    
+
     private String tipoContrato;
-    
+
     private Boolean contratoCredito;
     private String instituicaoCredito;
 

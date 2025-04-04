@@ -31,5 +31,25 @@ public class VeiculoService {
         veiculo.setStatus(novoStatus);
         return veiculoRepository.save(veiculo);
     }
+
+    public List<Veiculo> listarVeiculosPorTipo(String tipo) {
+        return veiculoRepository.findByTipoAndStatus(tipo, "Disponível");
+    }
+
+    public List<Veiculo> listarVeiculosPorMarca(String marca) {
+        return veiculoRepository.findByMarcaAndStatus(marca, "Disponível");
+    }
+
+    public List<Veiculo> listarVeiculosPorPrecoMaximo(double precoMaximo) {
+        return veiculoRepository.findByPrecoDiariaLessThanEqualAndStatus(precoMaximo, "Disponível");
+    }
+
+    public List<Veiculo> listarVeiculosPorPrecoMinimo(double precoMinimo) {
+        return veiculoRepository.findByPrecoDiariaGreaterThanEqualAndStatus(precoMinimo, "Disponível");
+    }
+
+    public List<Veiculo> listarTodosVeiculos() {
+        return veiculoRepository.findAll();
+    }
 }
 

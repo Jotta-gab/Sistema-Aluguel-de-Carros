@@ -65,11 +65,26 @@
                 <label for="precoDiaria">Preço da Diária</label>
                 <input type="number" class="form-control" id="precoDiaria" name="precoDiaria" placeholder="Digite o preço da diária" required>
             </div>
+
+            <div class="form-group">
+                <label for="tipo">Tipo do Veículo</label>
+                <select class="form-control" id="tipo" name="tipo" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="popular">Popular</option>
+                    <option value="servico">Serviço</option>
+                    <option value="luxo">Luxo</option>
+                    <option value="picapes">Picapes</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="motos">Motos</option>
+                </select>
+            </div>
             
             <div class="btn-container">
                 <button type="submit" class="btn btn-primary">Cadastrar Veículo</button>
                 <a href="/visualizarVeiculos.html" class="btn btn-secondary">Visualizar Veículos</a>
             </div>
+
         </form>
     </div>
     <script src="/script/cadastrarVeiculo.js"></script>

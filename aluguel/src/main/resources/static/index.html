@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TôDeCarro - Aluguel de Veículos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header class="hero">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>TôDeCarro</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#veiculos">Veículos</a></li>
+                <li><a href="#localizacao">Localização</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="/login.html" class="btn-login">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <h1>Alugue seu carro ideal com apenas alguns cliques</h1>
+            <p>Encontre o veículo perfeito para sua jornada com os melhores preços do mercado</p>
+            <a href="/cadastro.html" class="btn-primary">Reserve agora</a>
+        </div>
+    </header>
+
+    <section class="features" id="servicos">
+        <div class="container">
+            <h2>Por que escolher a TôDeCarro?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Melhores Preços</h3>
+                    <p>Garantimos as tarifas mais competitivas do mercado com descontos exclusivos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <h3>Frota Diversificada</h3>
+                    <p>Mais de 50 modelos diferentes para atender todas as suas necessidades.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Suporte 24h</h3>
+                    <p>Nossa equipe está disponível a qualquer momento para te ajudar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Multiplas Localizações</h3>
+                    <p>Retire e devolva seu veículo em qualquer uma de nossas filiais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vehicle-showcase" id="veiculos">
+        <div class="container">
+            <h2>Nossos Veículos</h2>
+            <div class="vehicle-filter">
+                <button class="filter-btn active" data-category="all">Todos</button>
+                <button class="filter-btn" data-category="popular">Popular</button>
+                <button class="filter-btn" data-category="sedan">Sedan</button>
+                <button class="filter-btn" data-category="suv">SUV</button>
+                <button class="filter-btn" data-category="luxo">Luxo</button>
+                <button class="filter-btn" data-category="motos">Motos</button>
+            </div>
+            <div class="vehicle-grid">
+                <!-- Veículos serão carregados via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="location" id="localizacao">
+        <div class="container">
+            <div class="location-content">
+                <h2>Encontre-nos</h2>
+                <p>Nossas filiais estão estrategicamente localizadas para sua conveniência. Veja nossa localização mais próxima de você:</p>
+                <div class="location-info">
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p id="user-location">Detectando sua localização...</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-clock"></i>
+                        <p>Seg-Sex: 8h-20h | Sáb: 9h-18h</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-phone-alt"></i>
+                        <p>(XX) XXXX-XXXX</p>
+                    </div>
+                </div>
+            </div>
+            <div class="map-container">
+              
+<div id="map" style="height: 400px; width: 100%; border-radius: 10px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Pronto para começar sua jornada?</h2>
+            <p>Cadastre-se agora e ganhe 10% de desconto na primeira reserva</p>
+            <a href="/cadastro.html" class="btn-primary">Cadastre-se gratuitamente</a>
+        </div>
+    </section>
+
+    <footer class="footer" id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>TôDeCarro</h3>
+                    <p>Soluções completas em aluguel de veículos para todas as necessidades.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#servicos">Serviços</a></li>
+                        <li><a href="#veiculos">Veículos</a></li>
+                        <li><a href="#localizacao">Localização</a></li>
+                        <li><a href="/admin.html">Área Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Principal, 1234 - Centro</li>
+                        <li><i class="fas fa-phone-alt"></i> (XX) XXXX-XXXX</li>
+                        <li><i class="fas fa-envelope"></i> contato@todecarro.com.br</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Assine para receber ofertas exclusivas</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 TôDeCarro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script/script.js"></script>
+</body>
+</html>

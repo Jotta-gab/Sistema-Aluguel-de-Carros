@@ -8,8 +8,9 @@ document
     let modelo = document.getElementById("modelo").value;
     let placa = document.getElementById("placa").value;
     let precoDiaria = document.getElementById("precoDiaria").value;
+    let tipo = document.getElementById("tipo").value;
 
-    fetch(" http://localhost:8080/admin/cadastrarVeiculo", {
+    fetch("http://localhost:8080/admin/cadastrarVeiculo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,8 +21,10 @@ document
         modelo: modelo,
         placa: placa,
         precoDiaria: precoDiaria,
+        tipo: tipo
       }),
     })
+
       .then((response) => {
         if (!response.ok) {
           return response.json().then((err) => Promise.reject(err));

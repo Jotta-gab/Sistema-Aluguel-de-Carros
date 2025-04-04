@@ -17,6 +17,16 @@ public class Veiculo {
     private String placa;
     private double precoDiaria;
     private String status;
+    private String tipo; 
+
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public Long getId() {
         return id;

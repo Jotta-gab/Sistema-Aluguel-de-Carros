@@ -1,3 +1,24 @@
+
+const mp = new MercadoPago('TEST-13567e25-7500-49d1-9d7b-fe3ed8624fbc', {
+  locale: 'pt-BR'
+});
+
+
+let contratoAtual = null;
+
+const modal = document.getElementById("payment-modal");
+const span = document.getElementsByClassName("close")[0];
+
+span.onclick = function () {
+  modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 function buscarPedidos() {
   const cpfCliente = document.getElementById("cpfCliente").value;
 
@@ -6,7 +27,6 @@ function buscarPedidos() {
     return;
   }
 
-
   fetch(`http://localhost:8080/cliente/meusPedidosCpf?cpf=${cpfCliente}`)
     .then((response) => response.json())
     .then((pedidos) => {
@@ -14,11 +34,11 @@ function buscarPedidos() {
       table.innerHTML = "";
 
       if (pedidos && pedidos.length > 0) {
-
         pedidos.forEach((pedido) => {
           fetch(`http://localhost:8080/admin/contrato/${cpfCliente}`)
             .then(response => response.json())
             .then(contrato => {
+              contratoAtual = contrato;
               let row = document.createElement("tr");
               row.innerHTML = `
                               <td>
@@ -35,15 +55,19 @@ function buscarPedidos() {
                                           <i class="fas fa-times"></i> Cancelar
                                       </button>` : ''}
                                   ${pedido.status === "Aprovado" && contrato ?
-                  `<button class="btn btn-download" onclick="gerarContratoPDF('${cpfCliente}')">
-                                          <i class="fas fa-download"></i> Contrato
-                                      </button>` : ''}
+                  `<div class="payment-actions">
+                                          <button class="btn btn-download" onclick="gerarContratoPDF('${cpfCliente}')">
+                                              <i class="fas fa-download"></i> Contrato
+                                          </button>
+                                          <button class="btn btn-payment" onclick="iniciarPagamento(${pedido.id}, ${contrato.valorTotalAluguel})">
+                                              <i class="fas fa-credit-card"></i> Pagar
+                                          </button>
+                                      </div>` : ''}
                               </td>
                           `;
               table.appendChild(row);
             })
             .catch(() => {
-
               let row = document.createElement("tr");
               row.innerHTML = `
                               <td>
@@ -102,11 +126,9 @@ function cancelarPedido(id) {
 }
 
 function gerarContratoPDF(cpfCliente) {
-
   fetch(`http://localhost:8080/admin/contrato/${cpfCliente}`)
     .then(response => response.json())
     .then(contrato => {
-
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
@@ -118,7 +140,6 @@ function gerarContratoPDF(cpfCliente) {
       doc.setFontSize(12);
       doc.text(`Nº do Contrato: ${contrato.id}`, 20, 90);
       doc.text(`Data: ${new Date(contrato.dataInicioAluguel).toLocaleDateString()}`, 20, 100);
-
 
       doc.setFontSize(14);
       doc.text('DADOS DAS PARTES CONTRATANTES', 105, 120, { align: 'center' });
@@ -132,14 +153,12 @@ function gerarContratoPDF(cpfCliente) {
       doc.text(`CPF: ${contrato.cpfCliente}`, 30, 180);
       doc.text(`Telefone: ${contrato.telefoneCliente}`, 30, 190);
 
-
       doc.setFontSize(14);
       doc.text('DADOS DO VEÍCULO', 105, 210, { align: 'center' });
 
       doc.setFontSize(12);
       doc.text(`Modelo: ${contrato.modeloCarro}`, 20, 225);
       doc.text(`Placa: ${contrato.placaCarro}`, 20, 235);
-
 
       doc.setFontSize(14);
       doc.text('TERMOS E CONDIÇÕES', 105, 255, { align: 'center' });
@@ -161,7 +180,6 @@ function gerarContratoPDF(cpfCliente) {
         y += 10;
       });
 
-
       doc.setFontSize(12);
       doc.text('_________________________________________', 30, 350);
       doc.text('Assinatura do Locador', 65, 360);
@@ -175,4 +193,52 @@ function gerarContratoPDF(cpfCliente) {
       console.error('Erro ao gerar contrato:', error);
       alert('Erro ao gerar contrato. Tente novamente.');
     });
+}
+
+function iniciarPagamento(pedidoId, valorTotal) {
+  modal.style.display = "block";
+  document.getElementById("payment-container").innerHTML = "<p>Carregando opções de pagamento...</p>";
+
+
+  fetch('/payment/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      pedidoId: pedidoId,
+      valor: valorTotal,
+      descricao: 'Pagamento do aluguel de veículo'
+    })
+  })
+    .then(response => response.json())
+    .then(preference => {
+      renderPaymentButton(preference.id);
+    })
+    .catch(error => {
+      console.error('Erro ao criar pagamento:', error);
+      document.getElementById("payment-container").innerHTML = `
+          <p class="error">Erro ao carregar opções de pagamento.</p>
+          <button class="btn" onclick="iniciarPagamento(${pedidoId}, ${valorTotal})">
+              Tentar novamente
+          </button>
+      `;
+    });
+}
+
+function renderPaymentButton(preferenceId) {
+
+  document.getElementById("payment-container").innerHTML = '';
+
+
+  mp.checkout({
+    preference: {
+      id: preferenceId
+    },
+    render: {
+      container: '#payment-container',
+      label: 'Pagar Agora',
+      type: 'wallet'
+    }
+  });
 }

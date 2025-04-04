@@ -39,5 +39,35 @@ public Veiculo cadastrarVeiculo(@RequestBody Veiculo veiculo) {
     public Veiculo alterarStatus(@PathVariable Long id, @RequestParam String status) {
         return veiculoService.alterarStatus(id, status);
     }
+
+    @GetMapping("/todosVeiculos")
+    @ResponseBody
+    public List<Veiculo> listarTodosVeiculos() {
+        return veiculoService.listarTodosVeiculos();
+    }
+
+    @GetMapping("/veiculosPorTipo/{tipo}")
+    @ResponseBody
+    public List<Veiculo> listarVeiculosPorTipo(@PathVariable String tipo) {
+        return veiculoService.listarVeiculosPorTipo(tipo);
+    }
+
+    @GetMapping("/veiculosPorMarca/{marca}")
+    @ResponseBody
+    public List<Veiculo> listarVeiculosPorMarca(@PathVariable String marca) {
+        return veiculoService.listarVeiculosPorMarca(marca);
+    }
+
+    @GetMapping("/veiculosPorPrecoMaximo/{precoMaximo}")
+    @ResponseBody
+    public List<Veiculo> listarVeiculosPorPrecoMaximo(@PathVariable double precoMaximo) {
+        return veiculoService.listarVeiculosPorPrecoMaximo(precoMaximo);
+    }
+
+    @GetMapping("/veiculosPorPrecoMinimo/{precoMinimo}")
+    @ResponseBody
+    public List<Veiculo> listarVeiculosPorPrecoMinimo(@PathVariable double precoMinimo) {
+        return veiculoService.listarVeiculosPorPrecoMinimo(precoMinimo);
+    }
 }
 

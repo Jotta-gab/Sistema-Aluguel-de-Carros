@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/nossosVeiculos.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
+    <title>Visualizar Veículos</title>
+</head>
+<body>
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <a href="#" class="logo-modern">
+                <div class="logo-modern-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="logo-modern-text">
+                    TÔ<span>DECARRO</span>
+                </div>
+            </a>
+        </div>
+        <div class="navbar-links">
+            <a href="/administrador.html" class="nav-link">
+                <i class="fas fa-home"></i> Início
+            </a> 
+            <a href="/cadastrarVeiculo.html" class="nav-link">
+                <i class="fas fa-car"></i> Cadastrar Veículo
+            </a>
+            <a href="/visualizarVeiculos.html" class="nav-link active">
+                <i class="fas fa-list"></i> Visualizar Veículos
+            </a>           
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Veículos Disponíveis</h1>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Filtros -->
+            <aside class="filters">
+                <h2>Filtros</h2>
+                
+                <div class="filter-group">
+                    <h3>Tipo de Veículo</h3>
+                    <div class="filter-options">
+                        <button class="filter-btn" data-tipo="popular">Popular</button>
+                        <button class="filter-btn" data-tipo="servico">Serviço</button>
+                        <button class="filter-btn" data-tipo="luxo">Luxo</button>
+                        <button class="filter-btn" data-tipo="picapes">Picapes</button>
+                        <button class="filter-btn" data-tipo="sedan">Sedan</button>
+                        <button class="filter-btn" data-tipo="suv">SUV</button>
+                        <button class="filter-btn" data-tipo="motos">Motos</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Preço</h3>
+                    <div class="filter-options">
+                        <button class="filter-btn" data-filtro="preco-menor">Menor preço</button>
+                        <button class="filter-btn" data-filtro="preco-maior">Maior preço</button>
+                    </div>
+                    <div class="price-range">
+                        <input type="number" id="preco-min" placeholder="Preço mínimo">
+                        <input type="number" id="preco-max" placeholder="Preço máximo">
+                        <button id="aplicar-preco">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Marca</h3>
+                    <input type="text" id="filtro-marca" placeholder="Digite a marca">
+                    <button id="buscar-marca">Buscar</button>
+                </div>
+
+                <button id="limpar-filtros" class="clear-filters">Limpar Filtros</button>
+            </aside>
+
+            <!-- Lista de veículos -->
+            <main class="vehicles-list">
+                <div class="search-bar">
+                    <input type="text" id="busca-geral" placeholder="Buscar veículos...">
+                    <button id="botao-busca"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div id="veiculos-container" class="vehicles-grid">
+                    <!-- Os cards de veículos serão inseridos aqui via JavaScript -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script/nossosVeiculos.js"></script>
+</body>
+</html>
