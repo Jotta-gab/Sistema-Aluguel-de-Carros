@@ -78,60 +78,73 @@ document.addEventListener('DOMContentLoaded', function() {
         return `https://via.placeholder.com/300x150?text=${encodeURIComponent(veiculo.marca + ' ' + veiculo.modelo)}`;
     }
 
-    // Criar card de veículo
-    function criarCardVeiculo(veiculo) {
-        const card = document.createElement('div');
-        card.className = 'vehicle-card';
+   // Criar card de veículo
+function criarCardVeiculo(veiculo) {
+    const card = document.createElement('div');
+    card.className = 'vehicle-card';
 
-        const imagem = document.createElement('div');
-        imagem.className = 'vehicle-image';
-        imagem.style.backgroundImage = `url('${obterImagemVeiculo(veiculo)}')`;
-        
-        const details = document.createElement('div');
-        details.className = 'vehicle-details';
+    const imagem = document.createElement('div');
+    imagem.className = 'vehicle-image';
+    imagem.style.backgroundImage = `url('${obterImagemVeiculo(veiculo)}')`;
+    
+    const details = document.createElement('div');
+    details.className = 'vehicle-details';
 
-        const title = document.createElement('h3');
-        title.textContent = `${veiculo.marca} ${veiculo.modelo}`;
+    const title = document.createElement('h3');
+    title.textContent = `${veiculo.marca} ${veiculo.modelo}`;
 
-        const meta = document.createElement('div');
-        meta.className = 'vehicle-meta';
-        meta.innerHTML = `
-            <span>${veiculo.ano}</span>
-            <span>${veiculo.placa}</span>
-        `;
+    const meta = document.createElement('div');
+    meta.className = 'vehicle-meta';
+    meta.innerHTML = `
+        <span>${veiculo.ano}</span>
+        <span>${veiculo.placa}</span>
+    `;
 
-        const price = document.createElement('div');
-        price.className = 'vehicle-price';
-        price.textContent = `R$ ${veiculo.precoDiaria.toFixed(2)}/dia`;
+    // Criando o botão de Cadastrar Pédio
+    const pedioButton = document.createElement('button');
+    pedioButton.className = 'btn-cadastrar-pedio';
+    pedioButton.textContent = 'Alugar';
+    pedioButton.onclick = function() {
+        window.location.href = 'novoPedido.html';
+    };
 
-        const type = document.createElement('div');
-        type.className = 'vehicle-type';
-        type.textContent = formatarTipo(veiculo.tipo);
+    const price = document.createElement('div');
+    price.className = 'vehicle-price';
+    price.textContent = `R$ ${veiculo.precoDiaria.toFixed(2)}/dia`;
 
-        details.appendChild(title);
-        details.appendChild(meta);
-        details.appendChild(price);
-        details.appendChild(type);
+    const type = document.createElement('div');
+    type.className = 'vehicle-type';
+    type.textContent = formatarTipo(veiculo.tipo);
 
-        card.appendChild(imagem);
-        card.appendChild(details);
+    // Adicionando todos os elementos ao card
+    details.appendChild(title);
+    details.appendChild(meta);
+    details.appendChild(price);
+    details.appendChild(type);
+    details.appendChild(pedioButton); // Adicionando o botão ao card
 
-        return card;
-    }
+    card.appendChild(imagem);
+    card.appendChild(details);
+
+    return card;
+}
 
     // Formatador de tipo
-    function formatarTipo(tipo) {
-        const tipos = {
-            'popular': 'Popular',
-            'servico': 'Serviço',
-            'luxo': 'Luxo',
-            'picapes': 'Picapes',
-            'sedan': 'Sedan',
-            'suv': 'SUV',
-            'motos': 'Motos'
-        };
-        return tipos[tipo] || tipo;
-    }
+   
+function formatarTipo(tipo) {
+    const tipos = {
+        'popular': 'Popular',
+        'servico': 'Serviço',
+        'luxo': 'Luxo',
+        'picapes': 'Picapes',
+        'sedan': 'Sedan',
+        'suv': 'SUV',
+        'motos': 'Motos',
+        'eletrico': 'Elétrico',
+        'hibrido': 'Híbrido'
+    };
+    return tipos[tipo] || tipo;
+}
 
     // Aplicar filtros
     function aplicarFiltros() {
