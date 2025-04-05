@@ -8,31 +8,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="icon" href="/img/icone-logo.png" type="image/png">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <header class="hero">
-        <nav class="navbar">
-            <div class="logo">
-                <i class="fas fa-car"></i>
-                <span>TôDeCarro</span>
+        <nav class="admin-navbar">
+            <div class="navbar-brand">
+                <a href="#" class="logo-modern">
+                    <div class="logo-modern-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="logo-modern-text">
+                        TÔ<span>DECARRO</span>
+                    </div>
+                </a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#veiculos">Veículos</a></li>
-                <li><a href="#localizacao">Localização</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="/login.html" class="btn-login">Login</a></li>
-            </ul>
+            <div class="navbar-links">
+                <a href="#servicos" class="nav-link">
+                    <i class="fas fa-concierge-bell"></i> Serviços
+                </a> 
+                <a href="#veiculos" class="nav-link">
+                    <i class="fas fa-car-side"></i> Veículos
+                </a>
+                <a href="#localizacao" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i> Localização
+                </a>
+                <a href="/aluguel/src/main/resources/static/login.html" class="nav-link btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>           
+            </div>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
         <div class="hero-content">
             <h1>Alugue seu carro ideal com apenas alguns cliques</h1>
-            <p>Encontre o veículo perfeito para sua jornada com os melhores preços do mercado</p>
-            <a href="/cadastro.html" class="btn-primary">Reserve agora</a>
+            <p>Encontre o veículo para sua jornada com os melhores preços do mercado.</p>
+            <a href="/aluguel/src/main/resources/static/cadastrar.html" class="btn-primary">Reserve agora</a>
         </div>
     </header>
 
@@ -84,7 +98,6 @@
                 <button class="filter-btn" data-category="motos">Motos</button>
             </div>
             <div class="vehicle-grid">
-                <!-- Veículos serão carregados via JavaScript -->
             </div>
         </div>
     </section>
@@ -143,7 +156,6 @@
                         <li><a href="#servicos">Serviços</a></li>
                         <li><a href="#veiculos">Veículos</a></li>
                         <li><a href="#localizacao">Localização</a></li>
-                        <li><a href="/admin.html">Área Admin</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -166,7 +178,7 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>&copy; 2023 TôDeCarro. Todos os direitos reservados.</p>
+                <p>&copy; 2025 Tô De Carro. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>

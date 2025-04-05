@@ -1,11 +1,11 @@
 :root {
-  --primary-color: #98FB98;
-  --secondary-color: #77c077;
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
   --accent-color: #e74c3c;
   --light-color: #ecf0f1;
   --dark-color: #2c3e50;
-  --success-color: #2ecc71;
-  --warning-color: #98FB98;
+  --success-color: #3498db;
+  --warning-color: #2c3e50;;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
 }
@@ -142,22 +142,22 @@ body {
 }
 
 .btn-alugar {
-  background-color: #98FB98;
+  background-color: #3498db;
   color: white;
 }
 
 .btn-alugar:hover {
-  background-color: #77c077;
+  background-color: #2c3e50;
   transform: translateY(-2px);
 }
 
 .btn-devolver {
-  background-color: #2ecc71;
+  background-color: #3498db;
   color: white;
 }
 
 .btn-devolver:hover {
-  background-color: #27ae60;
+  background-color: #2c3e50;
   transform: translateY(-2px);
 }
 
@@ -167,7 +167,7 @@ body {
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
-  border-left: 4px solid #2ecc71;
+  border-left: 4px solid #3498db;
 }
 
 .veiculo p {

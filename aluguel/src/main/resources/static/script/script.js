@@ -1,14 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Menu Mobile
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     
     hamburger.addEventListener('click', function() {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
+
+        if (navLinks.classList.contains('active')) {
+            const links = document.querySelectorAll('.nav-links li');
+            links.forEach((link, index) => {
+                link.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
+            });
+        } else {
+            document.querySelectorAll('.nav-links li').forEach(link => {
+                link.style.animation = '';
+            });
+        }
     });
-    
-    // Navbar scroll effect
+
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
@@ -16,13 +25,27 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             navbar.classList.remove('scrolled');
         }
+
+        const hero = document.querySelector('.hero');
+        const scrollPosition = window.pageYOffset;
+        hero.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
     });
-    
-    // Vehicle Filter
+
+    function typeWriter(element, text, i = 0) {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(() => typeWriter(element, text, i), 100);
+        }
+    }
+
+    const heroTitle = document.querySelector('.hero h1');
+    heroTitle.innerHTML = '';
+    typeWriter(heroTitle, 'Alugue seu carro ideal!');
+
     const filterBtns = document.querySelectorAll('.filter-btn');
     const vehicleGrid = document.querySelector('.vehicle-grid');
-    
-    // Dados dos veículos
+
     const vehicles = [
         {
             marca: 'Chevrolet',
@@ -81,8 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             imagem: 'https://www.honda.com.br/motos/sites/hda/files/2024-08/imagem-home-honda-biz-125-ex-lateral-azul.webp'
         }
     ];
-    
-    // Exibir veículos
+
     function displayVehicles(filter = 'all') {
         vehicleGrid.innerHTML = '';
         
@@ -90,26 +112,26 @@ document.addEventListener('DOMContentLoaded', function() {
             ? vehicles 
             : vehicles.filter(vehicle => vehicle.tipo === filter);
         
-        filteredVehicles.forEach(vehicle => {
+        filteredVehicles.forEach((vehicle, index) => {
             const vehicleCard = document.createElement('div');
             vehicleCard.className = 'vehicle-card';
+            vehicleCard.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1}s`;
             vehicleCard.innerHTML = `
-                <div class="vehicle-image" style="background-image: url('${vehicle.imagem}')"></div>
+                <div class="vehicle-image" style="background-image: url('${vehicle.imagem}')">
+                    <div class="vehicle-type">${formatVehicleType(vehicle.tipo)}</div>
+                </div>
                 <div class="vehicle-details">
                     <h3>${vehicle.marca} ${vehicle.modelo}</h3>
                     <div class="vehicle-meta">
                         <span>${vehicle.ano}</span>
-                        <span>${vehicle.tipo.toUpperCase()}</span>
+                        <span>${vehicle.preco.toFixed(2)}/dia</span>
                     </div>
-                    <div class="vehicle-price">R$ ${vehicle.preco.toFixed(2)}/dia</div>
-                    <div class="vehicle-type">${formatVehicleType(vehicle.tipo)}</div>
                 </div>
             `;
             vehicleGrid.appendChild(vehicleCard);
         });
     }
-    
-    // Formatar tipo do veículo
+
     function formatVehicleType(type) {
         const types = {
             'popular': 'Popular',
@@ -121,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return types[type] || type;
     }
     
-    // Filtro de veículos
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             filterBtns.forEach(b => b.classList.remove('active'));
@@ -131,35 +152,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Inicializar veículos
     displayVehicles();
     
-    // =============================================
-    // Mapa com Leaflet.js (OpenStreetMap) - GRATUITO
-    // =============================================
     function initMap() {
-        // Configuração inicial do mapa (coordenadas de Brasília como fallback)
         const map = L.map('map').setView([-15.7889, -47.8792], 12);
-        
-        // Adiciona o tile layer do OpenStreetMap
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-        
-        // Tenta obter a localização do usuário
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     const userLatLng = [position.coords.latitude, position.coords.longitude];
-                    
-                    // Atualiza a view do mapa
+
                     map.setView(userLatLng, 15);
-                    
-                    // Atualiza o texto da localização
+
                     const userLocationElement = document.getElementById('user-location');
                     userLocationElement.innerHTML = `Você está próximo a: ${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
-                    
-                    // Adiciona marcador do usuário
+
                     const userMarker = L.marker(userLatLng, {
                         icon: L.icon({
                             iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
@@ -169,8 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }).addTo(map);
                     
                     userMarker.bindPopup("<b>Sua localização</b>").openPopup();
-                    
-                    // Adiciona filiais fictícias próximas (substitua com suas coordenadas reais)
+
                     const branches = [
                         {
                             name: "Filial Centro",
@@ -191,8 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log("Erro ao obter localização:", error);
                     const userLocationElement = document.getElementById('user-location');
                     userLocationElement.textContent = 'Localização não disponível - Ative a geolocalização para uma experiência completa';
-                    
-                    // Adiciona marcadores padrão (filiais)
+
                     L.marker([-15.7889, -47.8792]).addTo(map)
                         .bindPopup("<b>Filial Principal</b><br>Brasília - DF");
                 }
@@ -201,15 +210,13 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Seu navegador não suporta geolocalização.");
         }
     }
-    
-    // Inicializa o mapa após carregar a biblioteca Leaflet
+
     if (typeof L !== 'undefined') {
         initMap();
     } else {
         console.error("Leaflet.js não carregou corretamente");
     }
-    
-    // Suavizar rolagem para âncoras
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -223,13 +230,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
                 });
-                
-                // Fechar menu mobile se estiver aberto
+
                 if (navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                     hamburger.classList.remove('active');
                 }
             }
         });
+    });
+
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card, .vehicle-showcase, .location, .cta').forEach(section => {
+        observer.observe(section);
     });
 });

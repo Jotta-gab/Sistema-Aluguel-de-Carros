@@ -97,7 +97,7 @@
 .navbar-brand .logo-modern-icon {
   font-size: 2rem;
   color: white;
-  background-color: #77c077;
+  background-color: #2c3e50;
   padding: 1px 10px;
   border-radius: 5px;
   margin-right: 10px;
@@ -110,6 +110,6 @@
 }
 
 .navbar-brand .logo-modern-text span {
-    color: #98FB98;
+    color: #3498db;
     font-weight: 800;
 }
