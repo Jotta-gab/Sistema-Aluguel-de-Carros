@@ -1,4 +1,4 @@
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=98FB98&height=120&section=header"/>
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=3498db&height=120&section=header"/>
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com/?color=fff&size=35&center=true&vCenter=true&width=1000&lines=Tô+de+Carro)](https://git.io/typing-svg)
 
@@ -63,4 +63,4 @@ src/
 # Apresentação com Slides
 Link do slide: 
   
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=98FB98&height=120&section=footer"/>
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=3498db&height=120&section=footer"/>
