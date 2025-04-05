@@ -136,6 +136,6 @@ aluguel/
 ```
 
 # Apresentação com Slides
-Link do slide: 
+Link do slide: https://www.canva.com/design/DAGjza3u5nM/nRT9KQ1WIoqQIX6oNUa5pg/edit?utm_content=DAGjza3u5nM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
   
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=3498db&height=120&section=footer"/>
