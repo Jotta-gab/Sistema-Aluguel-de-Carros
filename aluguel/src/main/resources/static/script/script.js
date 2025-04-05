@@ -121,28 +121,27 @@ window.addEventListener('scroll', () => {
         vehicleGrid.innerHTML = '';
         
         const filteredVehicles = filter === 'all' 
-            ? vehicles 
-            : vehicles.filter(vehicle => vehicle.tipo === filter);
+          ? vehicles 
+          : vehicles.filter(vehicle => vehicle.tipo === filter);
         
-        filteredVehicles.forEach((vehicle, index) => {
-            const vehicleCard = document.createElement('div');
-            vehicleCard.className = 'vehicle-card';
-            vehicleCard.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1}s`;
-            vehicleCard.innerHTML = `
-                <div class="vehicle-image" style="background-image: url('${vehicle.imagem}')">
-                    <div class="vehicle-type">${formatVehicleType(vehicle.tipo)}</div>
-                </div>
-                <div class="vehicle-details">
-                    <h3>${vehicle.marca} ${vehicle.modelo}</h3>
-                    <div class="vehicle-meta">
-                        <span>${vehicle.ano}</span>
-                        <span>${vehicle.preco.toFixed(2)}/dia</span>
-                    </div>
-                </div>
-            `;
-            vehicleGrid.appendChild(vehicleCard);
+        filteredVehicles.forEach((vehicle) => {
+          const vehicleCard = document.createElement('div');
+          vehicleCard.className = 'vehicle-card compact';
+          vehicleCard.innerHTML = `
+            <div class="vehicle-image" style="background-image: url('${vehicle.imagem}')">
+              <div class="vehicle-type">${formatVehicleType(vehicle.tipo)}</div>
+            </div>
+            <div class="vehicle-details">
+              <h3>${vehicle.marca} ${vehicle.modelo}</h3>
+              <div class="vehicle-meta">
+                <span>${vehicle.ano}</span>
+                <span>R$ ${vehicle.preco.toFixed(2)}/dia</span>
+              </div>
+            </div>
+          `;
+          vehicleGrid.appendChild(vehicleCard);
         });
-    }
+      }
 
     function formatVehicleType(type) {
         const types = {
