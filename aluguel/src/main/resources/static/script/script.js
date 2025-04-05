@@ -1,35 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+    const navLinks = document.querySelector('.navbar-links');
+    const navbar = document.querySelector('.admin-navbar');
     
-    hamburger.addEventListener('click', function() {
+    if (hamburger && navLinks && navbar) {
+      hamburger.addEventListener('click', function() {
         navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active');
 
-        if (navLinks.classList.contains('active')) {
-            const links = document.querySelectorAll('.nav-links li');
-            links.forEach((link, index) => {
-                link.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
-            });
-        } else {
-            document.querySelectorAll('.nav-links li').forEach(link => {
-                link.style.animation = '';
-            });
+        const icon = hamburger.querySelector('i');
+        if (icon) {
+          if (navLinks.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+            document.body.style.overflow = 'hidden';
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+            document.body.style.overflow = '';
+          }
         }
-    });
+      });
 
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+let lastScroll = 0;
+const navbar = document.querySelector('.admin-navbar');
+const scrollThreshold = 100;
 
-        const hero = document.querySelector('.hero');
-        const scrollPosition = window.pageYOffset;
-        hero.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
-    });
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+    navbar.classList.add('hidden');
+  } 
+  else if (currentScroll < lastScroll) {
+    navbar.classList.remove('hidden');
+  }
+  if (currentScroll > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+  
+  lastScroll = currentScroll;
+});
 
     function typeWriter(element, text, i = 0) {
         if (i < text.length) {
@@ -219,39 +231,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+  
+            if (navLinks.classList.contains('active')) {
+              navLinks.classList.remove('active');
+              const icon = hamburger.querySelector('i');
+              if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+              }
+              document.body.style.overflow = '';
             }
+          }
         });
-    });
+      });
 
-    const observerOptions = {
+      const observerOptions = {
         threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
+      };
+  
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animated');
-            }
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+          }
         });
-    }, observerOptions);
-
-    document.querySelectorAll('.feature-card, .vehicle-showcase, .location, .cta').forEach(section => {
+      }, observerOptions);
+  
+      document.querySelectorAll('.feature-card, .vehicle-showcase, .location, .cta').forEach(section => {
         observer.observe(section);
-    });
-});
+      });
+    }
+
+    const backToTopButton = document.getElementById('back-to-top');
+    if (backToTopButton) {
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+  
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  });

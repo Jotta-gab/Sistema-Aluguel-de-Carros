@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/favicon.png" type="image/png">
-    <link rel="icon" href="/img/icone-logo.png" type="image/png">
+    <link rel="icon" href="/aluguel/src/main/resources/static/img/icone-logo.png" type="image/png">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
@@ -36,7 +36,7 @@
                     <i class="fas fa-map-marked-alt"></i> Localização
                 </a>
                 <a href="/aluguel/src/main/resources/static/login.html" class="nav-link btn-login">
-                    <i class="fas fa-sign-in-alt"></i> Login
+                    <i class="fas fa-sign-in-alt"></i> Entrar/Cadastrar
                 </a>           
             </div>
             <div class="hamburger">
@@ -45,14 +45,14 @@
         </nav>
         <div class="hero-content">
             <h1>Alugue seu carro ideal com apenas alguns cliques</h1>
-            <p>Encontre o veículo para sua jornada com os melhores preços do mercado.</p>
-            <a href="/aluguel/src/main/resources/static/cadastrar.html" class="btn-primary">Reserve agora</a>
+            <p>Encontre o veículo perfeito com os melhores preços do mercado.</p>
+            <a href="/aluguel/src/main/resources/static/login.html" class="btn-primary">Reserve agora</a>
         </div>
     </header>
 
     <section class="features" id="servicos">
         <div class="container">
-            <h2>Por que escolher a TôDeCarro?</h2>
+            <h2>Por que nos escolher?</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -118,7 +118,7 @@
                     </div>
                     <div class="info-card">
                         <i class="fas fa-phone-alt"></i>
-                        <p>(XX) XXXX-XXXX</p>
+                        <p>(31)99970-7070</p>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,8 @@
         </div>
     </section>
 
-    <section class="cta">
+    <section class="cta" id="cta">
+        <div class="cta-background"></div>
         <div class="container">
             <h2>Pronto para começar sua jornada?</h2>
             <p>Cadastre-se agora e ganhe 10% de desconto na primeira reserva</p>
@@ -162,12 +163,12 @@
                     <h3>Contato</h3>
                     <ul>
                         <li><i class="fas fa-map-marker-alt"></i> Av. Principal, 1234 - Centro</li>
-                        <li><i class="fas fa-phone-alt"></i> (XX) XXXX-XXXX</li>
+                        <li><i class="fas fa-phone-alt"></i> (31)99970-7070</li>
                         <li><i class="fas fa-envelope"></i> contato@todecarro.com.br</li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>Newsletter</h3>
+                    <h3>Ofertas</h3>
                     <p>Assine para receber ofertas exclusivas</p>
                     <form class="newsletter-form">
                         <input type="email" placeholder="Seu e-mail" required>
@@ -182,6 +183,10 @@
             </div>
         </div>
     </footer>
+
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+      </button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="script/script.js"></script>
