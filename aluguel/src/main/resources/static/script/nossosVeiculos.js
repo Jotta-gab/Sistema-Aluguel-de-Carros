@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const veiculosContainer = document.getElementById('veiculos-container');
     const filtroMarca = document.getElementById('filtro-marca');
     const buscarMarcaBtn = document.getElementById('buscar-marca');
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterBtns = document.querySelectorAll('.filter-btn');
 
     let veiculos = [];
-    let carImages = {}; // Objeto para armazenar as imagens dos carros
+    let carImages = {};
     let filtrosAtivos = {
         tipo: null,
         marca: null,
@@ -19,21 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
         precoMax: null
     };
 
-    // Carregar todos os veículos e as imagens
+
     async function carregarDados() {
         try {
-            // Carrega as imagens primeiro
+
             const response = await fetch('imagens.json');
             carImages = await response.json();
-            
-            // Depois carrega os veículos
+
             const veiculosResponse = await fetch('http://localhost:8080/admin/todosVeiculos');
             veiculos = await veiculosResponse.json();
-            
+
             exibirVeiculos(veiculos);
         } catch (error) {
             console.error('Erro ao carregar dados:', error);
-            // Configura fallback caso o JSON não carregue
+
             carImages = {
                 'default': 'https://via.placeholder.com/300x150?text=Imagem+Indispon%C3%ADvel'
             };
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Exibir veículos na tela
+
     function exibirVeiculos(veiculosParaExibir) {
         veiculosContainer.innerHTML = '';
 
@@ -56,113 +55,111 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Função para obter a URL da imagem com fallback inteligente
+
     function obterImagemVeiculo(veiculo) {
-        // Tenta encontrar pelo modelo completo primeiro
+
         if (carImages[veiculo.modelo]) {
             return carImages[veiculo.modelo];
         }
-        
-        // Tenta encontrar pela primeira palavra do modelo
+
+
         const primeiraPalavraModelo = veiculo.modelo.split(' ')[0];
         if (carImages[primeiraPalavraModelo]) {
             return carImages[primeiraPalavraModelo];
         }
-        
-        // Tenta encontrar pela marca (para casos como Fiat Uno)
+
+
         if (carImages[veiculo.marca + ' ' + primeiraPalavraModelo]) {
             return carImages[veiculo.marca + ' ' + primeiraPalavraModelo];
         }
-        
-        // Fallback: usa placeholder com informações do carro
+
         return `https://via.placeholder.com/300x150?text=${encodeURIComponent(veiculo.marca + ' ' + veiculo.modelo)}`;
     }
 
-   // Criar card de veículo
-function criarCardVeiculo(veiculo) {
-    const card = document.createElement('div');
-    card.className = 'vehicle-card';
 
-    const imagem = document.createElement('div');
-    imagem.className = 'vehicle-image';
-    imagem.style.backgroundImage = `url('${obterImagemVeiculo(veiculo)}')`;
-    
-    const details = document.createElement('div');
-    details.className = 'vehicle-details';
+    function criarCardVeiculo(veiculo) {
+        const card = document.createElement('div');
+        card.className = 'vehicle-card';
 
-    const title = document.createElement('h3');
-    title.textContent = `${veiculo.marca} ${veiculo.modelo}`;
+        const imagem = document.createElement('div');
+        imagem.className = 'vehicle-image';
+        imagem.style.backgroundImage = `url('${obterImagemVeiculo(veiculo)}')`;
 
-    const meta = document.createElement('div');
-    meta.className = 'vehicle-meta';
-    meta.innerHTML = `
+        const details = document.createElement('div');
+        details.className = 'vehicle-details';
+
+        const title = document.createElement('h3');
+        title.textContent = `${veiculo.marca} ${veiculo.modelo}`;
+
+        const meta = document.createElement('div');
+        meta.className = 'vehicle-meta';
+        meta.innerHTML = `
         <span>${veiculo.ano}</span>
         <span>${veiculo.placa}</span>
     `;
 
-    // Criando o botão de Cadastrar Pédio
-    const pedioButton = document.createElement('button');
-    pedioButton.className = 'btn-cadastrar-pedio';
-    pedioButton.textContent = 'Alugar';
-    pedioButton.onclick = function() {
-        window.location.href = 'novoPedido.html';
-    };
 
-    const price = document.createElement('div');
-    price.className = 'vehicle-price';
-    price.textContent = `R$ ${veiculo.precoDiaria.toFixed(2)}/dia`;
+        const pedioButton = document.createElement('button');
+        pedioButton.className = 'btn-cadastrar-pedido';
+        pedioButton.textContent = 'Alugar';
+        pedioButton.onclick = function () {
+            window.location.href = 'novoPedido.html';
+        };
 
-    const type = document.createElement('div');
-    type.className = 'vehicle-type';
-    type.textContent = formatarTipo(veiculo.tipo);
+        const price = document.createElement('div');
+        price.className = 'vehicle-price';
+        price.textContent = `R$ ${veiculo.precoDiaria.toFixed(2)}/dia`;
 
-    // Adicionando todos os elementos ao card
-    details.appendChild(title);
-    details.appendChild(meta);
-    details.appendChild(price);
-    details.appendChild(type);
-    details.appendChild(pedioButton); // Adicionando o botão ao card
+        const type = document.createElement('div');
+        type.className = 'vehicle-type';
+        type.textContent = formatarTipo(veiculo.tipo);
 
-    card.appendChild(imagem);
-    card.appendChild(details);
 
-    return card;
-}
+        details.appendChild(title);
+        details.appendChild(meta);
+        details.appendChild(price);
+        details.appendChild(type);
+        details.appendChild(pedioButton);
 
-    // Formatador de tipo
-   
-function formatarTipo(tipo) {
-    const tipos = {
-        'popular': 'Popular',
-        'servico': 'Serviço',
-        'luxo': 'Luxo',
-        'picapes': 'Picapes',
-        'sedan': 'Sedan',
-        'suv': 'SUV',
-        'motos': 'Motos',
-        'eletrico': 'Elétrico',
-        'hibrido': 'Híbrido'
-    };
-    return tipos[tipo] || tipo;
-}
+        card.appendChild(imagem);
+        card.appendChild(details);
 
-    // Aplicar filtros
+        return card;
+    }
+
+
+
+    function formatarTipo(tipo) {
+        const tipos = {
+            'popular': 'Popular',
+            'servico': 'Serviço',
+            'luxo': 'Luxo',
+            'picapes': 'Picapes',
+            'sedan': 'Sedan',
+            'suv': 'SUV',
+            'motos': 'Motos',
+            'eletrico': 'Elétrico',
+            'hibrido': 'Híbrido'
+        };
+        return tipos[tipo] || tipo;
+    }
+
+
     function aplicarFiltros() {
         let veiculosFiltrados = [...veiculos];
 
-        // Filtro por tipo
+
         if (filtrosAtivos.tipo) {
             veiculosFiltrados = veiculosFiltrados.filter(v => v.tipo === filtrosAtivos.tipo);
         }
 
-        // Filtro por marca
+
         if (filtrosAtivos.marca) {
-            veiculosFiltrados = veiculosFiltrados.filter(v => 
+            veiculosFiltrados = veiculosFiltrados.filter(v =>
                 v.marca.toLowerCase().includes(filtrosAtivos.marca.toLowerCase())
             );
         }
 
-        // Filtro por preço
         if (filtrosAtivos.precoMin) {
             veiculosFiltrados = veiculosFiltrados.filter(v => v.precoDiaria >= filtrosAtivos.precoMin);
         }
@@ -174,14 +171,13 @@ function formatarTipo(tipo) {
         exibirVeiculos(veiculosFiltrados);
     }
 
-    // Busca geral
     function buscarGeral(termo) {
         if (!termo) {
             aplicarFiltros();
             return;
         }
 
-        const veiculosFiltrados = veiculos.filter(veiculo => 
+        const veiculosFiltrados = veiculos.filter(veiculo =>
             veiculo.marca.toLowerCase().includes(termo.toLowerCase()) ||
             veiculo.modelo.toLowerCase().includes(termo.toLowerCase()) ||
             veiculo.placa.toLowerCase().includes(termo.toLowerCase()) ||
@@ -192,13 +188,13 @@ function formatarTipo(tipo) {
         exibirVeiculos(veiculosFiltrados);
     }
 
-    // Event Listeners
+
     filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const tipo = this.dataset.tipo;
             const filtro = this.dataset.filtro;
 
-            // Remover classe active de todos os botões
+
             filterBtns.forEach(b => b.classList.remove('active'));
 
             if (tipo) {
@@ -222,13 +218,13 @@ function formatarTipo(tipo) {
         });
     });
 
-    buscarMarcaBtn.addEventListener('click', function() {
+    buscarMarcaBtn.addEventListener('click', function () {
         const marca = filtroMarca.value.trim();
         filtrosAtivos.marca = marca || null;
         aplicarFiltros();
     });
 
-    aplicarPrecoBtn.addEventListener('click', function() {
+    aplicarPrecoBtn.addEventListener('click', function () {
         const precoMin = parseFloat(precoMinInput.value);
         const precoMax = parseFloat(precoMaxInput.value);
 
@@ -238,8 +234,8 @@ function formatarTipo(tipo) {
         aplicarFiltros();
     });
 
-    limparFiltrosBtn.addEventListener('click', function() {
-        // Limpar filtros
+    limparFiltrosBtn.addEventListener('click', function () {
+
         filtrosAtivos = {
             tipo: null,
             marca: null,
@@ -247,28 +243,27 @@ function formatarTipo(tipo) {
             precoMax: null
         };
 
-        // Limpar inputs
         filtroMarca.value = '';
         precoMinInput.value = '';
         precoMaxInput.value = '';
 
-        // Remover classe active dos botões
+
         filterBtns.forEach(btn => btn.classList.remove('active'));
 
-        // Exibir todos os veículos
+
         exibirVeiculos(veiculos);
     });
 
-    botaoBusca.addEventListener('click', function() {
+    botaoBusca.addEventListener('click', function () {
         buscarGeral(buscaGeralInput.value.trim());
     });
 
-    buscaGeralInput.addEventListener('keyup', function(e) {
+    buscaGeralInput.addEventListener('keyup', function (e) {
         if (e.key === 'Enter') {
             buscarGeral(this.value.trim());
         }
     });
 
-    // Inicializar
+
     carregarDados();
 });

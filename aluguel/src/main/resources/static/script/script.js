@@ -73,7 +73,7 @@ window.addEventListener('scroll', () => {
             ano: '2022',
             preco: 110,
             tipo: 'popular',
-            imagem: 'https://www.otempo.com.br/content/dam/otempo/editorias/autotempo/2019/4/autotempo-eb098a80079169f8b4bb4f0c2e92bf79ljpg-1708402999.jpeg'
+            imagem: 'https://cdn.motor1.com/images/mgl/YAAopq/s1/volkswagen-gol-1.0-2023.webp'
         },
         {
             marca: 'Toyota',
