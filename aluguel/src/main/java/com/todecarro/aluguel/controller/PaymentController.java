@@ -1,30 +1,3 @@
-package com.todecarro.aluguel.controller;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.mercadopago.MercadoPagoConfig;
-import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
-import com.mercadopago.client.preference.PreferenceClient;
-import com.mercadopago.client.preference.PreferenceItemRequest;
-import com.mercadopago.client.preference.PreferenceRequest;
-import com.mercadopago.exceptions.MPApiException;
-import com.mercadopago.exceptions.MPException;
-import com.mercadopago.resources.preference.Preference;
-import com.todecarro.aluguel.model.Contrato;
-import com.todecarro.aluguel.repository.ContratoRepository;
-
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
@@ -38,9 +11,12 @@ public class PaymentController {
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createPayment(@RequestBody Map<String, Object> paymentRequest) {
         try {
+            // SEGURANÇA: Tokens e configurações externas não devem ser setados diretamente no método.
+            // Sugestão: criar uma classe de configuração @Configuration para configurar o MercadoPagoConfig.setAccessToken uma única vez no startup.
 
             MercadoPagoConfig.setAccessToken(mercadoPagoAccessToken);
 
+            // Melhor prática: validar se os campos estão presentes e bem formatados
             Long pedidoId = Long.parseLong(paymentRequest.get("pedidoId").toString());
             Double valor = Double.parseDouble(paymentRequest.get("valor").toString());
             String descricao = paymentRequest.get("descricao").toString();
@@ -78,6 +54,7 @@ public class PaymentController {
             return ResponseEntity.ok(response);
 
         } catch (MPApiException e) {
+            // Boa prática: retornar conteúdo do erro da API de forma clara
             e.printStackTrace();
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", e.getApiResponse().getContent());

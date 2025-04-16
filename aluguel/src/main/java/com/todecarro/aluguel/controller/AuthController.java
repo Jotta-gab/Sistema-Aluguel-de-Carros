@@ -1,11 +1,3 @@
-package com.todecarro.aluguel.controller;
-
-import com.todecarro.aluguel.model.Usuario;
-import com.todecarro.aluguel.service.UsuarioService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 @Controller
 public class AuthController {
 
@@ -29,19 +21,18 @@ public class AuthController {
     }
 
     @PostMapping("/cadastrar")
-public String cadastrar(@RequestParam String nome, 
-                        @RequestParam String email, 
-                        @RequestParam String senha, 
-                        @RequestParam String tipoConta) {
-    
-    Usuario usuario = new Usuario();
-    usuario.setNome(nome);
-    usuario.setEmail(email);
-    usuario.setSenha(senha);
-    usuario.setTipoConta(tipoConta);
+    public String cadastrar(@RequestParam String nome,
+                            @RequestParam String email,
+                            @RequestParam String senha,
+                            @RequestParam String tipoConta) {
 
-    usuarioService.cadastrar(usuario);
-    return "redirect:/login.html";
-}
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
+        usuario.setTipoConta(tipoConta);
 
+        usuarioService.cadastrar(usuario);
+        return "redirect:/login.html";
+    }
 }

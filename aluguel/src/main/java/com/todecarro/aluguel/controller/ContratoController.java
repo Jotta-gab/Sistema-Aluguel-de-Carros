@@ -1,16 +1,3 @@
-package com.todecarro.aluguel.controller;
-
-import com.todecarro.aluguel.model.Contrato;
-import com.todecarro.aluguel.model.Pedido;
-import com.todecarro.aluguel.service.ContratoService;
-import com.todecarro.aluguel.service.PedidoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/admin")
 public class ContratoController {
