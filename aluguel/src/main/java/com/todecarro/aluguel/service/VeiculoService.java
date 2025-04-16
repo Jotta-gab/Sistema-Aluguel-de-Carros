@@ -14,6 +14,8 @@ public class VeiculoService {
     private VeiculoRepository veiculoRepository;
 
     public Veiculo cadastrarVeiculo(Veiculo veiculo) {
+        // Boa prática: definir status padrão no cadastro. No entanto, isso pode ser encapsulado dentro da própria entidade Veiculo.
+        // Sugestão: mover para um método como veiculo.marcarComoDisponivel() para maior coesão no modelo.
         veiculo.setStatus("Disponível");
         return veiculoRepository.save(veiculo);
     }
@@ -27,12 +29,19 @@ public class VeiculoService {
     }
 
     public Veiculo alterarStatus(Long id, String novoStatus) {
-        Veiculo veiculo = veiculoRepository.findById(id).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+        // Evitar expor exceções genéricas como RuntimeException. 
+        // Sugestão: criar exceção customizada como VeiculoNaoEncontradoException para melhorar rastreabilidade.
+        Veiculo veiculo = veiculoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+
+        // A lógica de mudança de status também poderia ser responsabilidade da entidade: veiculo.atualizarStatus(novoStatus)
         veiculo.setStatus(novoStatus);
         return veiculoRepository.save(veiculo);
     }
 
     public List<Veiculo> listarVeiculosPorTipo(String tipo) {
+        // Todas essas listagens estão acopladas ao status "Disponível".
+        // Se for uma regra de negócio global, vale centralizar esse filtro em um método utilitário no repositório ou camada de domínio.
         return veiculoRepository.findByTipoAndStatus(tipo, "Disponível");
     }
 
@@ -52,4 +61,3 @@ public class VeiculoService {
         return veiculoRepository.findAll();
     }
 }
-

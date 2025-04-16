@@ -15,12 +15,13 @@ public class VeiculoController {
     @Autowired
     private VeiculoService veiculoService;
 
+    // @ResponseBody + @Controller pode ser substituído por @RestController (elimina a necessidade de usar @ResponseBody em todos os métodos)
+    // Sugestão: usar @RestController diretamente.
     @PostMapping("/cadastrarVeiculo")
-@ResponseBody
-public Veiculo cadastrarVeiculo(@RequestBody Veiculo veiculo) {
-    return veiculoService.cadastrarVeiculo(veiculo);
-}
-
+    @ResponseBody
+    public Veiculo cadastrarVeiculo(@RequestBody Veiculo veiculo) {
+        return veiculoService.cadastrarVeiculo(veiculo);
+    }
 
     @GetMapping("/veiculosDisponiveis")
     @ResponseBody
@@ -70,4 +71,3 @@ public Veiculo cadastrarVeiculo(@RequestBody Veiculo veiculo) {
         return veiculoService.listarVeiculosPorPrecoMinimo(precoMinimo);
     }
 }
-

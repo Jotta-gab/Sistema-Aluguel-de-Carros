@@ -20,6 +20,8 @@ public class PedidoController {
     @Autowired
     private VeiculoService veiculoService;
 
+    // Sugestão: mover para um controller específico de Veículo. 
+    // Mesmo que seja para clientes, isso mistura responsabilidades.
     @GetMapping("/veiculosDisponiveis")
     @ResponseBody
     public List<Veiculo> listarVeiculosDisponiveis() {
@@ -65,10 +67,10 @@ public class PedidoController {
         return aprovado ? "Pedido reprovado com sucesso!" : "Erro ao reprovar pedido.";
     }
 
-@GetMapping("/todosPedidos")
-@ResponseBody
-public List<Pedido> listarTodosPedidos() {
-    return pedidoService.listarTodosPedidos();
-}
+    @GetMapping("/todosPedidos")
+    @ResponseBody
+    public List<Pedido> listarTodosPedidos() {
+        return pedidoService.listarTodosPedidos();
+    }
 
 }

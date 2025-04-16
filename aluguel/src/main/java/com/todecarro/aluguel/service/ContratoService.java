@@ -20,6 +20,8 @@ public class ContratoService {
     private PedidoRepository pedidoRepository;
 
     public Contrato cadastrarContrato(Contrato contrato) {
+        // Sugestão de melhoria: essa lógica de cálculo poderia estar encapsulada no próprio domínio `Contrato`.
+        // Isso melhoraria a coesão e isolaria a lógica de negócios da camada de serviço.
         contrato.setValorTotalAluguel(contrato.getQuantidadeDiarias() * contrato.getPrecoDiaria());
         contrato.setAtivo(true);
         return contratoRepository.save(contrato);
@@ -34,6 +36,8 @@ public class ContratoService {
     }
 
     public Pedido consultarPedidoPorCpf(String cpf) {
+        // Retornar apenas o primeiro pedido pode causar ambiguidade se houver múltiplos pedidos.
+        // Melhor: retornar uma lista ou aplicar um critério mais claro (último pedido, pedido ativo, etc.).
         List<Pedido> pedidos = pedidoRepository.findByCpf(cpf);
         return pedidos.isEmpty() ? null : pedidos.get(0);
     }
@@ -43,9 +47,13 @@ public class ContratoService {
             contrato.setAtivo(false);
             contratoRepository.save(contrato);
         });
+
+        // Sugestão: considere retornar um boolean indicando se a operação foi bem-sucedida ou não (para feedback de API).
     }
 
     public void excluirContrato(Long id) {
+        // Essa operação é destrutiva. Antes de excluir, considerar validar se o contrato pode ser removido
+        // (ex: se já terminou, se não tem pagamentos pendentes, etc.).
         contratoRepository.deleteById(id);
     }
 
